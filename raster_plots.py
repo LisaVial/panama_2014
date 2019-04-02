@@ -95,6 +95,9 @@ def eodfs_cleaner(eodfs, df_thresh):
 
     return final_data
 
+def colors(idx):
+    list = []
+    return list[idx % len(list)]
 
 def rasterplot_for_habitat(habitat_data, habitat_id):
     # the function gets weakly electric fish recordings. These recordings are sorted and portrayed as a raster plot,
@@ -110,6 +113,8 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
 
     habitat_freq_mat = []
     original_freq_mat = []
+
+    all_colors = []
     for index in range(len(dates)):
         date = dates[index]
         # ori freqs: all frequencies, which were in the original recordings, in the rasterplots, they're portrayed as
@@ -121,15 +126,27 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
         original_freq_mat.append(ori_freqs)
         habitat_freq_mat.append(final_freqs)
 
+        colors = []
+        for i in range(len(freqs)):
+            c = np.random.rand(3)
+            # c = np.array([i/len(freqs), i/len(freqs), 1])
+            for j in range(len(freqs[i])):
+                colors.append(c)
+        all_colors.append(colors)
+
+                # embed()
+        # exit()
     # this passage defines the offsets, if you want to compare the frequencies of the original recordings with the
     # filtered ones
     original_lineoffsets = np.arange(len(original_freq_mat)) + 0.75
     final_lineoffsets = np.arange(len(habitat_freq_mat)) + 1.25
 
+    # embed()
+    # quit()
     fig, ax = plt.subplots()
     ax.eventplot(original_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
-                 lineoffsets=original_lineoffsets, colors='r')
-    ax.eventplot(habitat_freq_mat, orientation = 'horizontal', linelengths=0.5, linewidths=1.5,
+                 lineoffsets=original_lineoffsets, colors=all_colors)
+    ax.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
                  lineoffsets=final_lineoffsets, colors='k')
     ax.set_title('Habitat ' + habitat_id)
     ax.set_xlabel('frequencies [Hz]')
@@ -152,19 +169,15 @@ if __name__ == '__main__':
     # print(dates)
     dates.sort()
 
-    fish_table_dir = 'fish_table.csv'
-    ft_data = pd.read_csv(fish_table_dir)
-    fish_dict = {col: list(ft_data[col]) for col in ft_data.columns}
-    od_fish_dict = OrderedDict(fish_dict.items())
-
 
     for habitat in habitats:
         habitat_freq_mat = rasterplot_for_habitat(data[habitat], habitat)
         # norm_freqs = q10_noramlizor(final_freqs)
-        # embed()
-        # exit()
         for i in range(len(habitat_freq_mat)):
+            embed()
+            exit()
             day_freqs = habitat_freq_mat[i]
+            temp = np.unique(data[habitat][dates[i]]['temp'])
             norm_day_freqs = q10_noramlizor(day_freqs)
             freq_diff = np.abs(np.diff(norm_day_freqs))
 
