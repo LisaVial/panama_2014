@@ -46,7 +46,7 @@ def q10_noramlizor(freqs, current_temperature):
     # frequencies: flat lists of different fish frequencies
     corr_f = []
     for i in np.arange(len(freqs)):
-        corr_f.append(freqs[i] * (1.62 ** ((338.15 - current_temperature) / 10)))
+        corr_f.append(freqs[i] * (1.62 ** ((299.65 - current_temperature) / 10)))
 
     return corr_f
 
@@ -95,8 +95,8 @@ def eodfs_cleaner(eodfs, df_thresh):
 
     return final_data
 
-def colors(idx):
-    list = []
+def colors_func(idx):
+    list = ['#BA2D22', '#F47F17', '#53379B', '#3673A4', '#AAB71B', '#DC143C', '#1E90FF']
     return list[idx % len(list)]
 
 def rasterplot_for_habitat(habitat_data, habitat_id):
@@ -128,7 +128,7 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
 
         colors = []
         for i in range(len(freqs)):
-            c = np.random.rand(3)
+            c = colors_func(i)
             # c = np.array([i/len(freqs), i/len(freqs), 1])
             for j in range(len(freqs[i])):
                 colors.append(c)
@@ -160,9 +160,9 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     return habitat_freq_mat
 
 if __name__ == '__main__':
-    os.chdir('../../PycharmProjects/panama_2014/')
+    # os.chdir('../../PycharmProjects/panama_2014/')
     data = np.load('fish_dict.npy').item()
-
+    print(data)
     habitats = list(data.keys())
     habitats.sort()
     dates = list(data[habitats[0]].keys())
@@ -174,11 +174,12 @@ if __name__ == '__main__':
         habitat_freq_mat = rasterplot_for_habitat(data[habitat], habitat)
         # norm_freqs = q10_noramlizor(final_freqs)
         for i in range(len(habitat_freq_mat)):
-            embed()
-            exit()
+            # embed()
+            # exit()
             day_freqs = habitat_freq_mat[i]
             temp = np.unique(data[habitat][dates[i]]['temp'])
-            norm_day_freqs = q10_noramlizor(day_freqs)
+            norm_day_freqs = q10_noramlizor(day_freqs, temp)
+            print('This is the diference: ', day_freqs, norm_day_freqs)
             freq_diff = np.abs(np.diff(norm_day_freqs))
 
             # embed()
