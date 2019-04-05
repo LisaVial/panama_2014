@@ -1,10 +1,22 @@
 import numpy as np
 import matplotlib.pyplot as plt
+
 from matplotlib import cm
 import os
 import pandas as pd
 from collections import OrderedDict
 from IPython import embed
+
+
+def flatten_recording(recording):
+    frequencies = []
+
+    for pairs in recording:
+        # print(a)
+        # d = [pairs[0] for pairs in a]
+        frequencies.append(pairs[0])
+
+    return frequencies
 
 
 def extract_freqs_from_array(arr):
@@ -15,9 +27,8 @@ def extract_freqs_from_array(arr):
     # output: freqs is a list of list with different fish frequencies (length of single lists can vary)
 
     freqs = []
-
     for pairs in arr:
-        freqs.append([pairs[0]])
+        freqs.append(pairs[0])
 
     return freqs
 
@@ -34,12 +45,12 @@ def freqs_from_date(list_of_lists):
     freqs = []
     for arr in arrays:
         freqs += extract_freqs_from_array(arr)
-    flat_list = [item for sublist in freqs for item in sublist]
+    # flat_list = [item for sublist in freqs for item in sublist]
     # print(flat_list)
-    return flat_list
+    return freqs
 
 
-def q10_noramlizor(freqs, current_temperature):
+def q10_normalizer(freqs, current_temperature):
     # ... to be continued
     # this function normalizes the frequencies of weakly electric fish according to the q10 value
     # input:
@@ -97,7 +108,16 @@ def eodfs_cleaner(eodfs, df_thresh):
 
 def colors_func(idx):
     list = ['#BA2D22', '#F47F17', '#53379B', '#3673A4', '#AAB71B', '#DC143C', '#1E90FF']
+    # list[idx % len(list)] for modulo operations
+    # n_list = tuple(int(list[i:i+2], 16) for i in (0, 2, 4))
     return list[idx % len(list)]
+
+
+def onclick(event):
+    print('%s click: button=%d, x=%d, y=%d, xdata=%f, ydata=%f' %
+          ('double' if event.dblclick else 'single', event.button,
+           event.x, event.y, event.xdata, event.ydata))
+
 
 def rasterplot_for_habitat(habitat_data, habitat_id):
     # the function gets weakly electric fish recordings. These recordings are sorted and portrayed as a raster plot,
@@ -115,54 +135,73 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     original_freq_mat = []
 
     all_colors = []
+    fig, ax = plt.subplots()
     for index in range(len(dates)):
+        print(index)
         date = dates[index]
         # ori freqs: all frequencies, which were in the original recordings, in the rasterplots, they're portrayed as
-        # red lines
+        # lines of different colors
         ori_freqs = freqs_from_date(habitat_data[date]['freqs_and_amps'])
         freqs = habitat_data[date]['freqs_and_amps']
         cleaned_freqs = eodfs_cleaner(freqs, 0.5)
         final_freqs = freqs_from_date(cleaned_freqs)
         original_freq_mat.append(ori_freqs)
         habitat_freq_mat.append(final_freqs)
-
-        colors = []
-        for i in range(len(freqs)):
-            c = colors_func(i)
-            # c = np.array([i/len(freqs), i/len(freqs), 1])
-            for j in range(len(freqs[i])):
-                colors.append(c)
-        all_colors.append(colors)
-
-                # embed()
+        # embed()
         # exit()
+        o_lo = np.arange(len(dates))+0.75
+        for i in range(len(freqs)):
+            plot_freqs = flatten_recording(freqs[i])
+            cleaned_plot_freqs = flatten_recording(cleaned_freqs[i])
+            # embed()
+            # exit()
+            (print(plot_freqs))
+
+            ax.eventplot(plot_freqs, linelengths=0.5, linewidths=1.5, lineoffsets=o_lo[index],
+                         colors=[colors_func(i)])
+
+
     # this passage defines the offsets, if you want to compare the frequencies of the original recordings with the
     # filtered ones
-    original_lineoffsets = np.arange(len(original_freq_mat)) + 0.75
     final_lineoffsets = np.arange(len(habitat_freq_mat)) + 1.25
-
-    # embed()
-    # quit()
-    fig, ax = plt.subplots()
-    ax.eventplot(original_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
-                 lineoffsets=original_lineoffsets, colors=all_colors)
-    ax.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
-                 lineoffsets=final_lineoffsets, colors='k')
     ax.set_title('Habitat ' + habitat_id)
     ax.set_xlabel('frequencies [Hz]')
     ax.set_ylabel('dates')
     ax.set_xlim(400, 800)
     ax.set_yticks([1, 2, 3, 4, 5, 6, 7, 8])
     ax.set_yticklabels(dates)
+    # fig.savefig('Habitat_' + habitat_id + '.pdf')
+    ax.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
+             lineoffsets=final_lineoffsets, colors='k')
     plt.show()
-    fig.savefig('Habitat_' + habitat_id + '.pdf')
+    cid = fig.canvas.mpl_connect('button_press_event', onclick)
+    print(cid)
+    # color_list = ['k', 'r', 'y', 'c', 'm', 'mediumorchid', 'indigo']
+    # for pl_i in range(len(freqs)):
+    #         for k in range(len(color_list)):
+    #             print(freqs[pl_i], str(colors_func(k)))
+    #             plt.eventplot(final_freqs)
+    #         plt.show()
+    # fig, ax = plt.subplots()
+    # ax.eventplot(original_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
+    #             lineoffsets=original_lineoffsets, colors=all_colors)
+    # ax.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
+    #              lineoffsets=final_lineoffsets, colors='k')
+    # ax.set_title('Habitat ' + habitat_id)
+    # ax.set_xlabel('frequencies [Hz]')
+    # ax.set_ylabel('dates')
+    # ax.set_xlim(400, 800)
+    # ax.set_yticks([1, 2, 3, 4, 5, 6, 7, 8])
+    # ax.set_yticklabels(dates)
+    # plt.show()
+    # fig.savefig('Habitat_' + habitat_id + '.pdf')
 
     return habitat_freq_mat
 
 if __name__ == '__main__':
     # os.chdir('../../PycharmProjects/panama_2014/')
     data = np.load('fish_dict.npy').item()
-    print(data)
+    # print(data)
     habitats = list(data.keys())
     habitats.sort()
     dates = list(data[habitats[0]].keys())
@@ -177,9 +216,12 @@ if __name__ == '__main__':
             # embed()
             # exit()
             day_freqs = habitat_freq_mat[i]
-            temp = np.unique(data[habitat][dates[i]]['temp'])
-            norm_day_freqs = q10_noramlizor(day_freqs, temp)
-            print('This is the diference: ', day_freqs, norm_day_freqs)
+            if dates[i] not in data[habitat]:
+                continue
+            else:
+                temp = np.unique(data[habitat][dates[i]]['temp'])
+            norm_day_freqs = q10_normalizer(day_freqs, temp)
+            # print('This is the diference: A', day_freqs, 'B ', norm_day_freqs)
             freq_diff = np.abs(np.diff(norm_day_freqs))
 
             # embed()
