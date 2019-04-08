@@ -19,6 +19,18 @@ def flatten_recording(recording):
     return frequencies
 
 
+def flatten_ls(data):
+    f_ls = []
+    for i in range(len(data)):
+        for j in range(len(data[i])):
+            if type(data[i][j]) == np.ndarray:
+                freq = data[i][j][0]
+            else:
+                freq = data[i][j]
+            f_ls.append(freq)
+
+    return f_ls
+
 def extract_freqs_from_array(arr):
     # extract frequencies from dictionary arrays
     # input:
@@ -137,7 +149,7 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     all_colors = []
     fig, ax = plt.subplots()
     for index in range(len(dates)):
-        print(index)
+        # print(index)
         date = dates[index]
         # ori freqs: all frequencies, which were in the original recordings, in the rasterplots, they're portrayed as
         # lines of different colors
@@ -155,7 +167,7 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
             cleaned_plot_freqs = flatten_recording(cleaned_freqs[i])
             # embed()
             # exit()
-            (print(plot_freqs))
+            # (print(plot_freqs))
 
             ax.eventplot(plot_freqs, linelengths=0.5, linewidths=1.5, lineoffsets=o_lo[index],
                          colors=[colors_func(i)])
@@ -173,9 +185,10 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     # fig.savefig('Habitat_' + habitat_id + '.pdf')
     ax.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5,
              lineoffsets=final_lineoffsets, colors='k')
-    plt.show()
-    cid = fig.canvas.mpl_connect('button_press_event', onclick)
-    print(cid)
+    # fig.savefig('Habitat_' + habitat_id + '.pdf')
+    # plt.show()
+    # cid = fig.canvas.mpl_connect('button_press_event', onclick)
+    # print(cid)
     # color_list = ['k', 'r', 'y', 'c', 'm', 'mediumorchid', 'indigo']
     # for pl_i in range(len(freqs)):
     #         for k in range(len(color_list)):
@@ -208,30 +221,52 @@ if __name__ == '__main__':
     # print(dates)
     dates.sort()
 
+    all_habitat_freqs = []
+    all_temp_freqs = []
 
-    for habitat in habitats:
-        habitat_freq_mat = rasterplot_for_habitat(data[habitat], habitat)
-        # norm_freqs = q10_noramlizor(final_freqs)
-        for i in range(len(habitat_freq_mat)):
-            # embed()
-            # exit()
-            day_freqs = habitat_freq_mat[i]
-            if dates[i] not in data[habitat]:
+    fig, axs = plt.subplots(1, len(habitats), figsize=(15, 6), facecolor='w', edgecolor='k')
+    fig.subplots_adjust(hspace=.5, wspace=.001)
+
+    axs = axs.ravel()
+
+    for i in range(len(habitats)):
+        overall_habitat_freqs = []
+        habitat_freq_mat = rasterplot_for_habitat(data[habitats[i]], habitats[i])
+        for j in range(len(habitat_freq_mat)):
+            day_freqs = habitat_freq_mat[j]
+            if dates[j] not in data[habitats[i]]:
                 continue
             else:
-                temp = np.unique(data[habitat][dates[i]]['temp'])
+                temp = np.unique(data[habitats[i]][dates[j]]['temp'])
             norm_day_freqs = q10_normalizer(day_freqs, temp)
-            # print('This is the diference: A', day_freqs, 'B ', norm_day_freqs)
-            freq_diff = np.abs(np.diff(norm_day_freqs))
+            overall_habitat_freqs.append(norm_day_freqs)
+            print(habitat_freq_mat)
+            print(overall_habitat_freqs)
 
-            # embed()
-            # exit()
+        flat_norm_day_freqs = flatten_ls(overall_habitat_freqs)
+        flat_overall_habitat_freqs = flatten_ls(habitat_freq_mat)
+        all_habitat_freqs.append(flat_overall_habitat_freqs)
+        all_temp_freqs.append(flat_norm_day_freqs)
+        # freq_diff = np.abs(np.diff(norm_day_freqs))
 
-            # fig, ax = plt.subplots()
-            # ax.hist(freq_diff, bins=20, alpha=0.5)
-            # ax.set_title('distribution of frequency differences in habitat ' + habitat + ': ' + dates[i])
-            # ax.set_xlabel('frequencies [Hz]')
-            # ax.set_ylabel('rate')
-            # plt.show()
+        axs[i].hist(flat_overall_habitat_freqs, bins=20, alpha=0.5, color='#BA2D22', label='original freqs')
+        axs[i].hist(flat_norm_day_freqs, bins=20, alpha=0.5, color='#AAB71B', label='Q_10 corrected')
+        axs[i].set_xlim([0, 1000])
+        axs[i].set_title('habitat ' + habitats[i])
+        axs[i].set_xlabel('frequencies [Hz]')
+        axs[i].set_ylabel('rate')
+        plt.legend()
+        plt.tight_layout()
+    plt.show()
+    print(all_habitat_freqs)
+    print(all_temp_freqs)
+    flat_habitat_freqs = flatten_ls(all_habitat_freqs)
+    flat_temp_freqs = flatten_ls(all_temp_freqs)
+    fig, ax = plt.subplots()
+    ax.hist(flat_overall_habitat_freqs, bins=20, alpha=0.5, color='#BA2D22', label='original freqs')
+    ax.hist(flat_norm_day_freqs, bins=20, alpha=0.5, color='#AAB71B', label='Q_10 corrected')
+    plt.show()
+    embed()
+    exit()
             # fig.savefig('df_hist' + habitat + dates[i] + '.pdf')
-
+        #
