@@ -163,12 +163,11 @@ if __name__ == '__main__':
     habitats.sort()
     dates = get_dates(data)
 
-    all_day_freqs = []
+
     all_freqs = []
-    all_norm_temp_freqs = []
     all_temp_freqs = []
 
-    fig, axs = plt.subplots(1, len(habitats), figsize=(15, 6), facecolor='w', edgecolor='k')
+    fig, axs = plt.subplots(1, len(habitats), figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True)
     fig.subplots_adjust(hspace=.5, wspace=.001)
     axs = axs.ravel()
 
@@ -178,6 +177,8 @@ if __name__ == '__main__':
 
     for i in range(len(habitats)):
         habitat_freq_mat, habitat_dates = hab_mat_creator(data[habitats[i]], habitats[i])
+        all_day_freqs = []
+        all_norm_temp_freqs = []
         for j in range(len(habitat_freq_mat)):
             day_freqs = habitat_freq_mat[j]
             temp = np.unique(data[habitats[i]][habitat_dates[j]]['temp'])[0]
@@ -195,8 +196,8 @@ if __name__ == '__main__':
         xkde = np.arange(0, 1000, 0.5)
         ykde = kde(xkde)
 
-        axs[i].hist(flat_all_habitat_freqs, bins=20, alpha=0.5, color='#BA2D22', label='original freqs')
-        axs[i].hist(flat_temp_freqs, bins=20, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
+        axs[i].hist(flat_all_habitat_freqs, bins=100, alpha=0.5, color='#BA2D22', label='original freqs')
+        axs[i].hist(flat_temp_freqs, bins=100, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
         axs[i].set_xlim([0, 1000])
         axs[i].set_title('habitat ' + habitats[i])
         axs[i].set_xlabel('frequencies [Hz]')
@@ -226,7 +227,5 @@ if __name__ == '__main__':
     ax_3.legend(loc=1, frameon=False, ncol=2)
     plt.show()
 
-    # embed()
-    # exit()
-    # fig.savefig('df_hist' + habitat + dates[i] + '.pdf')
-    #
+    embed()
+    exit()
