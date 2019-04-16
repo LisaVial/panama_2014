@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from IPython import embed
 from scipy.stats import gaussian_kde
-
+from itertools import *
 
 def get_dates(data_dict):
     dates = []
@@ -15,6 +15,7 @@ def get_dates(data_dict):
 
 def flatten_ls(data):
     f_ls = []
+    # embed()
     for i in range(len(data)):
         for j in range(len(data[i])):
             if type(data[i][j]) == np.ndarray:
@@ -165,6 +166,7 @@ if __name__ == '__main__':
 
 
     all_freqs = []
+    all_diff_freqs = []
     all_temp_freqs = []
 
     fig, axs = plt.subplots(1, len(habitats), figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True)
@@ -175,6 +177,7 @@ if __name__ == '__main__':
 
     fig_3, ax_3 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
 
+    fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
     for i in range(len(habitats)):
         habitat_freq_mat, habitat_dates = hab_mat_creator(data[habitats[i]], habitats[i])
         all_day_freqs = []
@@ -183,8 +186,12 @@ if __name__ == '__main__':
             day_freqs = habitat_freq_mat[j]
             temp = np.unique(data[habitats[i]][habitat_dates[j]]['temp'])[0]
             temp_freqs = q10_normalizer(day_freqs, temp)
+            # lambda function in mapping function, with map() a new list is returned which contains items returned by
+            # that function for each item (from docu).
+            diff_freqs = list(map(lambda x: list(np.abs(temp_freqs[x]-temp_freqs[x+1:])), np.arange(len(temp_freqs))))
             all_day_freqs.append(day_freqs)
             all_norm_temp_freqs.append(temp_freqs)
+            all_diff_freqs.append(diff_freqs)
 
         flat_all_habitat_freqs = flatten_ls(all_day_freqs)
         flat_temp_freqs = flatten_ls(all_norm_temp_freqs)
@@ -211,7 +218,8 @@ if __name__ == '__main__':
 
     flat_freqs = flatten_ls(all_freqs)
     flat_temp_freqs = flatten_ls(all_temp_freqs)
-
+    flat_diff_freqs = flatten_ls(all_diff_freqs)
+    rly_flat_diff_freqs = flatten_ls(flat_diff_freqs)
     all_kde = gaussian_kde(flat_temp_freqs, .05)
     all_xkde = np.arange(0, 1000, 0.5)
     all_ykde = all_kde(all_xkde)
@@ -223,8 +231,9 @@ if __name__ == '__main__':
     ax_3.set_xlim([0, 1000])
     ax_3.set_xlabel('frequencies [Hz]')
     ax_3.set_ylabel('rate')
-    ax_2.legend(loc=1, frameon=False, ncol=2)
-    ax_3.legend(loc=1, frameon=False, ncol=2)
+    ax_2.legend(loc=1, frameon=False, ncol=2, numpoints=1)
+    ax_3.legend(loc=1, frameon=False, ncol=2, numpoints=1)
+    ax_4.hist(rly_flat_diff_freqs, bins =100, alpha=0.5, color='#BA2D22')
     plt.show()
 
     embed()
