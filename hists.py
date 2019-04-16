@@ -22,7 +22,7 @@ def flatten_ls(data):
                 freq = data[i][j][0]
             else:
                 freq = data[i][j]
-            f_ls.append(freq)
+            f_ls += freq
 
     return f_ls
 
@@ -168,7 +168,7 @@ if __name__ == '__main__':
     all_freqs = []
     all_diff_freqs = []
     all_temp_freqs = []
-
+    diff_freqs_w_abs = []
     fig, axs = plt.subplots(1, len(habitats), figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True)
     fig.subplots_adjust(hspace=.5, wspace=.001)
     axs = axs.ravel()
@@ -178,33 +178,46 @@ if __name__ == '__main__':
     fig_3, ax_3 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
 
     fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
+
+
     for i in range(len(habitats)):
         habitat_freq_mat, habitat_dates = hab_mat_creator(data[habitats[i]], habitats[i])
-        all_day_freqs = []
         all_norm_temp_freqs = []
+        all_day_freqs = []
         for j in range(len(habitat_freq_mat)):
             day_freqs = habitat_freq_mat[j]
             temp = np.unique(data[habitats[i]][habitat_dates[j]]['temp'])[0]
             temp_freqs = q10_normalizer(day_freqs, temp)
             # lambda function in mapping function, with map() a new list is returned which contains items returned by
             # that function for each item (from docu).
-            diff_freqs = list(map(lambda x: list(np.abs(temp_freqs[x]-temp_freqs[x+1:])), np.arange(len(temp_freqs))))
-            all_day_freqs.append(day_freqs)
-            all_norm_temp_freqs.append(temp_freqs)
-            all_diff_freqs.append(diff_freqs)
+            diff_freqs_no_abs = []
+            for x in range(len(temp_freqs)):
+                    # diff_freqs_no_abs += [(temp_freqs[x] - temp_freqs[y]) for y in range(x+1, len(temp_freqs))]
+                    diff_freqs_no_abs += list(map(lambda y: temp_freqs[x] - temp_freqs[y],
+                                                  list(range(x+1, len(temp_freqs)))))
+            # diff_freqs = [np.abs(diff) for diff in diff_freqs_no_abs]
+            diff_freqs = list(map(lambda d: np.abs(d), diff_freqs_no_abs))
+            all_day_freqs += day_freqs
+            all_norm_temp_freqs += temp_freqs
+            all_diff_freqs += diff_freqs
+            diff_freqs_w_abs += diff_freqs_no_abs
 
-        flat_all_habitat_freqs = flatten_ls(all_day_freqs)
-        flat_temp_freqs = flatten_ls(all_norm_temp_freqs)
-        all_freqs.append(flat_all_habitat_freqs)
-        all_temp_freqs.append(flat_temp_freqs)
+        # flat_all_habitat_freqs = flatten_ls(all_day_freqs)
+        # flat_temp_freqs = flatten_ls(all_norm_temp_freqs)
+        all_freqs += all_day_freqs
+        all_temp_freqs += all_norm_temp_freqs
+
+        # if i == 6:
+        #     embed()
+        #     exit()
 
         # freq_diff = np.abs(np.diff(norm_day_freqs))
-        kde = gaussian_kde(flat_temp_freqs, .05)
+        kde = gaussian_kde(all_norm_temp_freqs, .05)
         xkde = np.arange(0, 1000, 0.5)
         ykde = kde(xkde)
 
-        axs[i].hist(flat_all_habitat_freqs, bins=100, alpha=0.5, color='#BA2D22', label='original freqs')
-        axs[i].hist(flat_temp_freqs, bins=100, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
+        axs[i].hist(all_day_freqs, bins=50, alpha=0.5, color='#BA2D22', label='original freqs')
+        axs[i].hist(all_norm_temp_freqs, bins=50, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
         axs[i].set_xlim([0, 1000])
         axs[i].set_title('habitat ' + habitats[i])
         axs[i].set_xlabel('frequencies [Hz]')
@@ -216,25 +229,27 @@ if __name__ == '__main__':
         plt.tight_layout()
     fig.show()
 
-    flat_freqs = flatten_ls(all_freqs)
-    flat_temp_freqs = flatten_ls(all_temp_freqs)
-    flat_diff_freqs = flatten_ls(all_diff_freqs)
-    rly_flat_diff_freqs = flatten_ls(flat_diff_freqs)
-    all_kde = gaussian_kde(flat_temp_freqs, .05)
+    # flat_freqs = flatten_ls(all_freqs)
+    # flat_temp_freqs = flatten_ls(all_temp_freqs)
+    # flat_diff_freqs = flatten_ls(all_diff_freqs)
+    # rly_flat_diff_freqs = flatten_ls(flat_diff_freqs)
+    # flat_diff_freqs_w_abs = flatten_ls(diff_freqs_w_abs)
+    # rly_flat_diff_freqs_w_abs = flatten_ls(flat_diff_freqs_w_abs)
+    all_kde = gaussian_kde(all_temp_freqs, .05)
     all_xkde = np.arange(0, 1000, 0.5)
     all_ykde = all_kde(all_xkde)
 
-    ax_3.hist(flat_freqs, bins=100, alpha=0.5, color='#BA2D22', label='original freqs')
-    ax_3.hist(flat_temp_freqs, bins=100, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
-    ax_2.plot(xkde, ykde, color=colors_func(i), label=habitats[i], linewidth=2)
+    ax_3.hist(all_freqs, bins=100, alpha=0.5, color='#BA2D22', label='original freqs')
+    ax_3.hist(all_temp_freqs, bins=100, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
+    # ax_2.plot(xkde, ykde, color=colors_func(i), linewidth=2)
     ax_2.plot(all_xkde, all_ykde, color='k', label='all frequencies', linewidth=4)
     ax_3.set_xlim([0, 1000])
     ax_3.set_xlabel('frequencies [Hz]')
     ax_3.set_ylabel('rate')
     ax_2.legend(loc=1, frameon=False, ncol=2, numpoints=1)
     ax_3.legend(loc=1, frameon=False, ncol=2, numpoints=1)
-    ax_4.hist(rly_flat_diff_freqs, bins =100, alpha=0.5, color='#BA2D22')
+    ax_4.hist(all_diff_freqs, bins =50, alpha=0.5, color='#BA2D22')
+    # plt.show()
+    plt.hist(diff_freqs_w_abs, bins=100, alpha=0.6, color='#AAB71B')
     plt.show()
 
-    embed()
-    exit()
