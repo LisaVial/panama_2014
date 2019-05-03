@@ -180,7 +180,8 @@ if __name__ == '__main__':
     # fig_3, ax_3 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
     #
     # fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
-
+    female_day_freqs = []
+    male_day_freqs = []
 
     for i in range(len(habitats)):
         habitat_freq_mat, habitat_dates = hab_mat_creator(data[habitats[i]], habitats[i])
@@ -188,6 +189,8 @@ if __name__ == '__main__':
         all_day_freqs = []
         for j in range(len(habitat_freq_mat)):
             day_freqs = habitat_freq_mat[j]
+            female_day_freqs.append([x for x in day_freqs if (x > 500.0) and (x < 700.0)])
+            male_day_freqs.append([x for x in day_freqs if (x > 700.0) and (x < 1000.0)])
             temp = np.unique(data[habitats[i]][habitat_dates[j]]['temp'])[0]
             temp_freqs = q10_normalizer(day_freqs, temp)
             # lambda function in mapping function, with map() a new list is returned which contains items returned by
@@ -265,7 +268,8 @@ if __name__ == '__main__':
     for x in range(len(male_freqs)):
         diff_male_freqs += list(map(lambda y: male_freqs[x] - male_freqs[y], list(range(x+1, len(male_freqs)))))
     gender_freqs = [[diff_fem_freqs], [diff_male_freqs]]
-
+    embed()
+    exit()
     fig, ax1 = plt.subplots(facecolor='w', edgecolor='k', sharex=True)
     ax1.set_title('Females and Males')
     ax1.boxplot(gender_freqs)
