@@ -39,6 +39,7 @@ def extract_freqs_from_array(arr):
 
     freqs = []
     for pairs in arr:
+        embed()
         freqs.append(pairs[0])
 
     return freqs
@@ -126,16 +127,25 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     """
     dates = list(habitat_data.keys())
     dates.sort()
-
+    # embed()
+    # exit()
     habitat_freq_mat = []
+    habitat_temp_mat = []
 
     fig, ax = plt.subplots()
+    temp_fig, temp_ax = plt.subplots()
     for index in range(len(dates)):
         date = dates[index]
+        temp = np.unique(habitat_data[date]['temp'])
         freqs = habitat_data[date]['freqs_and_amps']
         cleaned_freqs = eodfs_cleaner(freqs, 0.5)
+        temp_freqs = q10_normalizer(cleaned_freqs, temp)
+        embed()
+        exit()
         final_freqs = freqs_from_date(cleaned_freqs)
+        final_temp_freqs = freqs_from_date(temp_freqs)
         habitat_freq_mat.append(final_freqs)
+        habitat_temp_mat.append(final_temp_freqs)
 
     ax.set_title('Habitat ' + habitat_id)
     ax.set_xlabel('frequencies [Hz]')
@@ -147,7 +157,32 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     ax.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
     plt.show()
 
+    temp_ax.set_title('Q 10 corrected frequencies')
+    temp_ax.set_xlabel('frequencies [Hz]')
+    temp_ax.set_ylabel('dates')
+    temp_ax.set_xlim(500, 1000)
+    temp_ax.set_yticks([1, 2, 3, 4, 5, 6, 7, 8])
+    temp_ax.set_yticklabels(dates)
+    # fig.savefig('Habitat_' + habitat_id + '.pdf')
+    temp_ax.eventplot(habitat_temp_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
+    plt.show()
     return habitat_freq_mat
+
+
+def q10_normalizer(freqs, current_temperature):
+    # ... to be continued
+    # this function normalizes the frequencies of weakly electric fish according to the q10 value
+    # input:
+    # frequencies: flat lists of different fish frequencies
+    corr_f = []
+    for i in np.arange(len(freqs)):
+        if len(freqs[i]) > 1:
+            for j in range(len(freqs[i])):
+                corr_f.append(freqs[i][j] * (1.62 ** ((299.65 - current_temperature) / 10)))
+        else:
+            corr_f.append(freqs[i][0] * (1.62 ** ((299.65 - current_temperature) / 10)))
+    return corr_f
+
 
 def colors_func(idx):
     list = ['#BA2D22', '#F47F17', '#53379B', '#3673A4', '#AAB71B', '#DC143C', '#1E90FF']

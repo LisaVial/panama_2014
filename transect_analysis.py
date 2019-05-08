@@ -36,6 +36,7 @@ def dict_creator(filenames, fish_dict):
         # embed()
         # load the data
         df = np.array(pd.read_csv(file))
+        df = np.asarray([x for x in df if x[0] < 1000])
         # split name of current file
         current_file = file.split('/')
         # print('Current file: ', current_file)

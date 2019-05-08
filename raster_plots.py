@@ -100,7 +100,7 @@ def eodfs_cleaner(eodfs, df_thresh):
     final_data: list of lists
         filtered frequencies and amplitudes
     """
-
+    # embed()
     mask = [np.ones(len(eodfs[i]), dtype=bool) for i in range(len(eodfs))]
 
     for j in range(len(eodfs)-1):
@@ -118,9 +118,13 @@ def eodfs_cleaner(eodfs, df_thresh):
                         mask[j][l] = False
 
     final_data = [[]]*len(eodfs)
-
+    # final_data = eodfs[mask]
     for m in range(len(eodfs)):
-        final_data[m] = eodfs[m][mask[m]]
+        # print(m, mask)
+        # embed()
+        # exit()
+        final_data[m] = np.asarray(eodfs[m])[mask[m]]
+
 
     return final_data
 
@@ -149,7 +153,6 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     # rasterplots of the different habitats, in which each line represents recordings from one day
     dates = list(habitat_data.keys())
     dates.sort()
-
     habitat_freq_mat = []
     original_freq_mat = []
 

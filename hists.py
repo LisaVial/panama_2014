@@ -112,7 +112,7 @@ def eodfs_cleaner(eodfs, df_thresh):
     final_data = [[]]*len(eodfs)
 
     for m in range(len(eodfs)):
-        final_data[m] = eodfs[m][mask[m]]
+        final_data[m] = np.asarray(eodfs[m])[mask[m]]
 
     return final_data
 
@@ -180,17 +180,24 @@ if __name__ == '__main__':
     # fig_3, ax_3 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
     #
     # fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
-    female_day_freqs = []
-    male_day_freqs = []
 
+    sex_fig, sex_ax = plt.subplots(1, len(habitats), figsize=(15,6), facecolor='w', edgecolor='k', sharex=True)
+    overall_female_freqs = []
+    overall_male_freqs = []
+    overall_sex_freqs = []
     for i in range(len(habitats)):
         habitat_freq_mat, habitat_dates = hab_mat_creator(data[habitats[i]], habitats[i])
         all_norm_temp_freqs = []
         all_day_freqs = []
+        female_day_freqs = []
+        male_day_freqs = []
         for j in range(len(habitat_freq_mat)):
             day_freqs = habitat_freq_mat[j]
-            female_day_freqs.append([x for x in day_freqs if (x > 500.0) and (x < 700.0)])
-            male_day_freqs.append([x for x in day_freqs if (x > 700.0) and (x < 1000.0)])
+
+            female_day_freqs = ([x for x in day_freqs if (x > 500.0) and (x < 700.0)])
+            male_day_freqs = ([x for x in day_freqs if (x > 700.0) and (x < 1000.0)])
+            sex_day_freqs = [[female_day_freqs], [male_day_freqs]]
+
             temp = np.unique(data[habitats[i]][habitat_dates[j]]['temp'])[0]
             temp_freqs = q10_normalizer(day_freqs, temp)
             # lambda function in mapping function, with map() a new list is returned which contains items returned by
@@ -202,6 +209,11 @@ if __name__ == '__main__':
                                                   list(range(x+1, len(temp_freqs)))))
             # diff_freqs = [np.abs(diff) for diff in diff_freqs_no_abs]
             diff_freqs = list(map(lambda d: np.abs(d), diff_freqs_no_abs))
+
+            overall_female_freqs.append(female_day_freqs)
+            overall_male_freqs.append(male_day_freqs)
+            overall_sex_freqs.append(sex_day_freqs)
+
             all_day_freqs += day_freqs
             all_norm_temp_freqs += temp_freqs
             all_diff_freqs += diff_freqs
@@ -262,18 +274,18 @@ if __name__ == '__main__':
     female_freqs = [x for x in all_freqs if (x > 500.0) and (x < 700.0)]
     diff_fem_freqs = []
     for x in range(len(female_freqs)):
-        diff_fem_freqs += list(map(lambda y: female_freqs[x] - female_freqs[y], list(range(x+1, len(female_freqs)))))
+        diff_fem_freqs += list(map(lambda y: np.abs(female_freqs[x] - female_freqs[y]), list(range(x+1, len(female_freqs)))))
     male_freqs = [x for x in all_freqs if (x > 700.0) and (x < 1000.0)]
     diff_male_freqs = []
     for x in range(len(male_freqs)):
-        diff_male_freqs += list(map(lambda y: male_freqs[x] - male_freqs[y], list(range(x+1, len(male_freqs)))))
-    gender_freqs = [[diff_fem_freqs], [diff_male_freqs]]
-    embed()
-    exit()
+        diff_male_freqs += list(map(lambda y: np.abs(male_freqs[x] - male_freqs[y]), list(range(x+1, len(male_freqs)))))
+    sex_freqs = [[diff_fem_freqs], [diff_male_freqs]]
+    # embed()
+    # exit()
     fig, ax1 = plt.subplots(facecolor='w', edgecolor='k', sharex=True)
     ax1.set_title('Females and Males')
-    ax1.boxplot(gender_freqs)
-    ax1.set_xlabel('genders')
+    ax1.boxplot(sex_freqs)
+    ax1.set_xlabel('sexes')
     ax1.set_xticks(range(3))
     ax1.set_xticklabels(['', 'female', 'male'])
     ax1.set_ylabel('frequency difference')

@@ -1,17 +1,17 @@
 Date,filename,estimated upstream position (m),position comments,conductivity (MikroS),temperature (degrees C),temperature (degrees Fahrenheit),pH,Habitat,fish type ,comments
-2014-17-05,L01,~40,,70,27,300.15,8.2,E,wave,many fish
-2014-17-05,L02,~40,,70,27,300.15,8.2,E,wave,many fish
-2014-17-05,L03,39.5,,70,27,300.15,8.2,E,wave,many fish
-2014-17-05,L04,39.5,,70,27,300.15,8.2,E,wave,many fish
-2014-17-05,L05,39,,70,27,300.15,8.2,E,wave,many fish
-2014-17-05,L06,39,,70,27,300.15,8.2,E,wave,many fish
-2014-17-05,L07,38.5,,70,27,300.15,8.2,E,wave,"1 big Sterno, many Apteronotus"
-2014-17-05,L08,38,,70,27,300.15,8.2,E,pulse,1 deep Brachy
-2014-17-05,L09,35,,70,27,300.15,8.2,F,wave,"2 Apteronotus, L10 was no recording"
-2014-17-05,L11,35,,70,27,300.15,8.2,F,wave,"1 Sternopygus, 2 Apteronotus"
-2014-17-05,L12,35,,70,27,300.15,8.2,F,wave,"2 Sternopygus, 2 Apteronotus, 1 extremely high frequency"
-2014-17-05,L13,40,side of grid,70,27,300.15,8.2,D,wave,1 Apteronotus
-2014-17-05,L14,35,side of grid,70,27,300.15,8.2,D,wave,"2 Apteronotus, 1 extremely high frequency"
+2014-17-05,L01,~40,,70,27,300.15,8.2,D,wave,many fish
+2014-17-05,L02,~40,,70,27,300.15,8.2,D,wave,many fish
+2014-17-05,L03,39.5,,70,27,300.15,8.2,D,wave,many fish
+2014-17-05,L04,39.5,,70,27,300.15,8.2,D,wave,many fish
+2014-17-05,L05,39,,70,27,300.15,8.2,D,wave,many fish
+2014-17-05,L06,39,,70,27,300.15,8.2,D,wave,many fish
+2014-17-05,L07,38.5,,70,27,300.15,8.2,D,wave,"1 big Sterno, many Apteronotus"
+2014-17-05,L08,38,,70,27,300.15,8.2,D,pulse,1 deep Brachy
+2014-17-05,L09,35,,70,27,300.15,8.2,E,wave,"2 Apteronotus, L10 was no recording"
+2014-17-05,L11,35,,70,27,300.15,8.2,E,wave,"1 Sternopygus, 2 Apteronotus"
+2014-17-05,L12,35,,70,27,300.15,8.2,E,wave,"2 Sternopygus, 2 Apteronotus, 1 extremely high frequency"
+2014-17-05,L13,40,side of grid,70,27,300.15,8.2,C,wave,1 Apteronotus
+2014-17-05,L14,35,side of grid,70,27,300.15,8.2,C,wave,"2 Apteronotus, 1 extremely high frequency"
 2014-17-05,L15,10,~30m from first spot on the other side,70,27,300.15,8.2,A,wave,"1 Apteronotus, 1 extremely high frequency"
 2014-17-05,L16,6,~4m towards entrance from 15[...],70,27,300.15,8.2,A,wave,1 Apteronotus
 2014-17-05,L17,6,about 3m from the giant tree @ entrance,70,27,300.15,8.2,A,pulse,1 Brachy
@@ -39,27 +39,27 @@ Date,filename,estimated upstream position (m),position comments,conductivity (Mi
 2014-18-05,EN062,3.6,,71,26.5,299.65,8.2,A,wave,1 Apteronotus ? L15
 2014-18-05,EN063,4.8,,71,26.5,299.65,8.2,A,wave,1 Apteronotus ? L14
 2014-18-05,EN064,5,,71,26.5,299.65,8.2,A,wave,many fish ? L13
-2014-18-05,EN065,40,otherside,71,26.5,299.65,8.2,E,wave,many fish
-2014-18-05,EN066,39,,71,26.5,299.65,8.2,E,wave,many fish
-2014-18-05,EN067,39,,71,26.5,299.65,8.2,E,wave,many fish
-2014-18-05,EN068,38.5,,71,26.5,299.65,8.2,E,wave,many fish
-2014-18-05,EN069,38,,71,26.5,299.65,8.2,E,wave,many fish
-2014-18-05,EN071,37.5,,71,26.5,299.65,8.2,E,wave,many fish
-2014-18-05,EN072,40,side of grid,71,26.5,299.65,8.2,D,wave,"2 Sternopygus, 2 Apteronotus, 1 extremely high frequency"
-2014-18-05,EN073,39.5,,71,26.5,299.65,8.2,D,wave,"2 Sternopygus, 2 Apteronotus"
-2014-18-05,EN075,29.5,,71,26.5,299.65,8.2,C,wave,1 Apteronotus
-2014-18-05,EN076,23.5,,71,26.5,299.65,8.2,C,wave,1 Apteronotus
-2014-18-05,EN077,37.5,otherside,71,26.5,299.65,8.2,E,wave,many fish
-2014-18-05,EN078,36,,71,26.5,299.65,8.2,E,wave,"4 Sternopygus, 1 Apteronotus"
-2014-18-05,EN079,35.4,,71,26.5,299.65,8.2,E,wave ,"3 Sternopygus, 1 Apteronotus"
-2014-18-05,EN080,35.2,,71,26.5,299.65,8.2,E,wave,many fish (just the beat)
-2014-18-05,EN081,6,,71,26.5,299.65,8.2,G,wave,"4 Sternopygus, 1 Apteronotus"
-2014-18-05,EN082,5.8,,71,26.5,299.65,8.2,G,wave,"5 Sternopygus, 4 Apteronotus"
-2014-18-05,EN083,5.6,,71,26.5,299.65,8.2,G,wave,"2 Sternopygus, 3 Apteronotus"
-2014-18-05,EN084,5,,71,26.5,299.65,8.2,G,wave,"2 Sternopygus, 3 Apteronotus"
-2014-18-05,EN085,4.5,,71,26.5,299.65,8.2,G,wave,"3 Sternopygus, 3 Apteronotus"
-2014-18-05,EN086,4,,71,26.5,299.65,8.2,G,wave,1 Apteronotus
-2014-18-05,EN087,3.5,,71,26.5,299.65,8.2,G,wave,1 Apteronotus
+2014-18-05,EN065,40,otherside,71,26.5,299.65,8.2,D,wave,many fish
+2014-18-05,EN066,39,,71,26.5,299.65,8.2,D,wave,many fish
+2014-18-05,EN067,39,,71,26.5,299.65,8.2,D,wave,many fish
+2014-18-05,EN068,38.5,,71,26.5,299.65,8.2,D,wave,many fish
+2014-18-05,EN069,38,,71,26.5,299.65,8.2,D,wave,many fish
+2014-18-05,EN071,37.5,,71,26.5,299.65,8.2,D,wave,many fish
+2014-18-05,EN072,40,side of grid,71,26.5,299.65,8.2,C,wave,"2 Sternopygus, 2 Apteronotus, 1 extremely high frequency"
+2014-18-05,EN073,39.5,,71,26.5,299.65,8.2,C,wave,"2 Sternopygus, 2 Apteronotus"
+2014-18-05,EN075,29.5,,71,26.5,299.65,8.2,B,wave,1 Apteronotus
+2014-18-05,EN076,23.5,,71,26.5,299.65,8.2,B,wave,1 Apteronotus
+2014-18-05,EN077,37.5,otherside,71,26.5,299.65,8.2,D,wave,many fish
+2014-18-05,EN078,36,,71,26.5,299.65,8.2,D,wave,"4 Sternopygus, 1 Apteronotus"
+2014-18-05,EN079,35.4,,71,26.5,299.65,8.2,D,wave ,"3 Sternopygus, 1 Apteronotus"
+2014-18-05,EN080,35.2,,71,26.5,299.65,8.2,D,wave,many fish (just the beat)
+2014-18-05,EN081,6,,71,26.5,299.65,8.2,F,wave,"4 Sternopygus, 1 Apteronotus"
+2014-18-05,EN082,5.8,,71,26.5,299.65,8.2,F,wave,"5 Sternopygus, 4 Apteronotus"
+2014-18-05,EN083,5.6,,71,26.5,299.65,8.2,F,wave,"2 Sternopygus, 3 Apteronotus"
+2014-18-05,EN084,5,,71,26.5,299.65,8.2,F,wave,"2 Sternopygus, 3 Apteronotus"
+2014-18-05,EN085,4.5,,71,26.5,299.65,8.2,F,wave,"3 Sternopygus, 3 Apteronotus"
+2014-18-05,EN086,4,,71,26.5,299.65,8.2,F,wave,1 Apteronotus
+2014-18-05,EN087,3.5,,71,26.5,299.65,8.2,F,wave,1 Apteronotus
 2014-19-05,EN088,4,,53,25.5,298.65,7.7,A,Wave / pulse,"2 Sternopygus, 1 Apteronotus, 1 Brachy"
 2014-19-05,EN089,4.2,,53,25.5,298.65,7.7,A,wave,many fish ? L05
 2014-19-05,EN090,4.5,,53,25.5,298.65,7.7,A,wave,"2 Sternopygus, 3 Apteronotus ? L06"
@@ -71,25 +71,25 @@ Date,filename,estimated upstream position (m),position comments,conductivity (Mi
 2014-19-05,EN097,14.5,,53,25.5,298.65,7.7,B,wave,2 Apteronotus
 2014-19-05,EN098,16,,53,25.5,298.65,7.7,B,wave,2 Apteronotus
 2014-19-05,EN099,16,,53,25.5,298.65,7.7,B,wave,2 Apteronotus
-2014-19-05,EN100,35,side of grid,53,25.5,298.65,7.7,D,wave,1 Apteronotus
-2014-19-05,EN101,35,,53,25.5,298.65,7.7,D,wave,1 Apteronotus
-2014-19-05,EN102,35,,53,25.5,298.65,7.7,D,wave,1 Apteronotus
+2014-19-05,EN100,35,side of grid,53,25.5,298.65,7.7,C,wave,1 Apteronotus
+2014-19-05,EN101,35,,53,25.5,298.65,7.7,C,wave,1 Apteronotus
+2014-19-05,EN102,35,,53,25.5,298.65,7.7,C,wave,1 Apteronotus
 2014-19-05,EN103,40,otherside,53,25.5,298.65,7.7,D,wave/pulse,many fish
-2014-19-05,EN104,39,,53,25.5,298.65,7.7,E,wave/pulse,many fish
-2014-19-05,EN105,38.5,,53,25.5,298.65,7.7,E,wave/pulse,many fish
-2014-19-05,EN106,38.5,"Closer to surface, same spot",53,25.5,298.65,7.7,E,wave/pulse,many fish
-2014-19-05,EN107,38,,53,25.5,298.65,7.7,E,wave/pulse,many fish
-2014-19-05,EN108,37.5,,53,25.5,298.65,7.7,E,wave/pulse,many fish
-2014-19-05,EN109,37.5,"same spot, but deeper",53,25.5,298.65,7.7,E,wave/pulse,many fish
-2014-19-05,EN110,36,,53,25.5,298.65,7.7,E,wave/pulse,many fish
-2014-19-05,EN111,35,,53,25.5,298.65,7.7,E,wave/pulse,"3 Sternopygus, 2 Apteronotus, 1 extremely high frequency & 1 Brachy"
-2014-19-05,EN112,34.4,,53,25.5,298.65,7.7,E,wave,"1 Sternopygus, 1 Apteronotus"
-2014-19-05,EN114,10,,53,25.5,298.65,7.7,G,wave,1 Apteronotus
-2014-19-05,EN115,4.5,,53,25.5,298.65,7.7,G,wave,1 Apteronotus
-2014-19-05,EN116,4,,53,25.5,298.65,7.7,G,wave,"3 Sternopygus, 1 Apteronotus"
-2014-19-05,EN117,3.5,,53,25.5,298.65,7.7,G,wave,"Many, 7 Sternopygus, 4 Apteronotus"
-2014-19-05,EN118,2,,53,25.5,298.65,7.7,G,wave,"6 Sternopygus, 2 Apteronotus"
-2014-19-05,EN119,6,seems like brachys start appearing about 6m from entrance on either side,53,25.5,298.65,7.7,G,wave,"3 Sternopygus, 3 Apteronotus"
+2014-19-05,EN104,39,,53,25.5,298.65,7.7,D,wave/pulse,many fish
+2014-19-05,EN105,38.5,,53,25.5,298.65,7.7,D,wave/pulse,many fish
+2014-19-05,EN106,38.5,"Closer to surface, same spot",53,25.5,298.65,7.7,D,wave/pulse,many fish
+2014-19-05,EN107,38,,53,25.5,298.65,7.7,D,wave/pulse,many fish
+2014-19-05,EN108,37.5,,53,25.5,298.65,7.7,D,wave/pulse,many fish
+2014-19-05,EN109,37.5,"same spot, but deeper",53,25.5,298.65,7.7,D,wave/pulse,many fish
+2014-19-05,EN110,36,,53,25.5,298.65,7.7,D,wave/pulse,many fish
+2014-19-05,EN111,35,,53,25.5,298.65,7.7,D,wave/pulse,"3 Sternopygus, 2 Apteronotus, 1 extremely high frequency & 1 Brachy"
+2014-19-05,EN112,34.4,,53,25.5,298.65,7.7,D,wave,"1 Sternopygus, 1 Apteronotus"
+2014-19-05,EN114,10,,53,25.5,298.65,7.7,F,wave,1 Apteronotus
+2014-19-05,EN115,4.5,,53,25.5,298.65,7.7,F,wave,1 Apteronotus
+2014-19-05,EN116,4,,53,25.5,298.65,7.7,F,wave,"3 Sternopygus, 1 Apteronotus"
+2014-19-05,EN117,3.5,,53,25.5,298.65,7.7,F,wave,"Many, 7 Sternopygus, 4 Apteronotus"
+2014-19-05,EN118,2,,53,25.5,298.65,7.7,F,wave,"6 Sternopygus, 2 Apteronotus"
+2014-19-05,EN119,6,seems like brachys start appearing about 6m from entrance on either side,53,25.5,298.65,7.7,F,wave,"3 Sternopygus, 3 Apteronotus"
 2014-20-05,EN120,5,starting directly after grid,65,27.4,300.55,8,A,wave,"3 Sternopygus, 2 Apteronotus "
 2014-20-05,EN121,5.2,,65,27.4,300.55,8,A,wave,"5 Sternopygus, 2 Apteronotus"
 2014-20-05,EN122,5.8,,65,27.4,300.55,8,A,wave,"2 Sternopygus, 2 Apteronotus"
@@ -98,31 +98,31 @@ Date,filename,estimated upstream position (m),position comments,conductivity (Mi
 2014-20-05,EN125,13,~6m upstream,65,27.4,300.55,8,B,wave,1 Apteronotus
 2014-20-05,EN126,16,~3m upstream,65,27.4,300.55,8,B,wave,1 Apteronotus
 2014-20-05,EN127,22,~6m upstream,65,27.4,300.55,8,B,wave,1 Apteronotus
-2014-20-05,EN128,28,~6m,65,27.4,300.55,8,D,wave,1 Apteronotus
-2014-20-05,EN 129,36,8m upstream,65,27.4,300.55,8,D,wave,1 Apteronotus
-2014-20-05,EN130,38,on the other side,65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN131,38,"shored in tree, same spot",65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN132,36,,65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN133,36,,65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN134,36,,65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN135,37,,65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN136,37,,65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN137,37,,65,27.4,300.55,8,E,wave,many fish
-2014-20-05,EN138,37,,65,27.4,300.55,8,E,wave,"two Sternopygus, five Apteronotus"
-2014-20-05,EN139,36.5,,65,27.4,300.55,8,E,wave,"two Sternopygus, two Apteronotus"
-2014-20-05,EN140,36,,65,27.4,300.55,8,E,wave,"one Sternopygus, one Apteronotus"
-2014-20-05,EN141,36,,65,27.4,300.55,8,E,wave,"one Sternopygus, one Apteronotus"
-2014-20-05,EN142,36,,65,27.4,300.55,8,E,wave,one Apteronotus
-2014-20-05,EN143,36.5,,65,27.4,300.55,8,E,wave,one Apteronotus (maybe same fish as EN143)
-2014-20-05,EN144,36,,65,27.4,300.55,8,E,wave,"four Sternopygus, two Apteronotus"
-2014-20-05,EN145,16,,65,27.4,300.55,8,G,wave,"two Sternopygus, three Apteronotus"
-2014-20-05,EN146,14,,65,27.4,300.55,8,G,wave,"Three Sternopygus, one Apteronotus"
-2014-20-05,EN147,13.6,,65,27.4,300.55,8,G,wave,"Three Sternopygus, one Apteronotus"
-2014-20-05,EN148,13,,65,27.4,300.55,8,G,wave,"one Sternopygus, two Apteronotus, one Brachy"
-2014-20-05,EN149,12.7,,65,27.4,300.55,8,G,wave,"Three Sternopygus, one Apteronotus"
-2014-20-05,EN150,12.2,,65,27.4,300.55,8,G,wave,"one Sternopygus, three Apteronotus"
-2014-20-05,EN151,12.2,,65,27.4,300.55,8,G,wave,"one Sternopygus, three Apteronotus"
-2014-20-05,EN152,12,,65,27.4,300.55,8,G,wave,two Apteronotus
+2014-20-05,EN128,28,~6m,65,27.4,300.55,8,C,wave,1 Apteronotus
+2014-20-05,EN 129,36,8m upstream,65,27.4,300.55,8,C,wave,1 Apteronotus
+2014-20-05,EN130,38,on the other side,65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN131,38,"shored in tree, same spot",65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN132,36,,65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN133,36,,65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN134,36,,65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN135,37,,65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN136,37,,65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN137,37,,65,27.4,300.55,8,D,wave,many fish
+2014-20-05,EN138,37,,65,27.4,300.55,8,D,wave,"two Sternopygus, five Apteronotus"
+2014-20-05,EN139,36.5,,65,27.4,300.55,8,D,wave,"two Sternopygus, two Apteronotus"
+2014-20-05,EN140,36,,65,27.4,300.55,8,D,wave,"one Sternopygus, one Apteronotus"
+2014-20-05,EN141,36,,65,27.4,300.55,8,D,wave,"one Sternopygus, one Apteronotus"
+2014-20-05,EN142,36,,65,27.4,300.55,8,D,wave,one Apteronotus
+2014-20-05,EN143,36.5,,65,27.4,300.55,8,D,wave,one Apteronotus (maybe same fish as EN143)
+2014-20-05,EN144,36,,65,27.4,300.55,8,D,wave,"four Sternopygus, two Apteronotus"
+2014-20-05,EN145,16,,65,27.4,300.55,8,F,wave,"two Sternopygus, three Apteronotus"
+2014-20-05,EN146,14,,65,27.4,300.55,8,F,wave,"Three Sternopygus, one Apteronotus"
+2014-20-05,EN147,13.6,,65,27.4,300.55,8,F,wave,"Three Sternopygus, one Apteronotus"
+2014-20-05,EN148,13,,65,27.4,300.55,8,F,wave,"one Sternopygus, two Apteronotus, one Brachy"
+2014-20-05,EN149,12.7,,65,27.4,300.55,8,F,wave,"Three Sternopygus, one Apteronotus"
+2014-20-05,EN150,12.2,,65,27.4,300.55,8,F,wave,"one Sternopygus, three Apteronotus"
+2014-20-05,EN151,12.2,,65,27.4,300.55,8,F,wave,"one Sternopygus, three Apteronotus"
+2014-20-05,EN152,12,,65,27.4,300.55,8,F,wave,two Apteronotus
 2014-21-05,EN001,1.2,,0,26.4,299.55,,A,wave,"1 Sternopygus, 3 Apteronotus"
 2014-21-05,EN002,1.2,,0,26.4,299.55,,A,wave,"2 Sternopygus, 2 Apteronotus"
 2014-21-05,EN004,2.2,,0,26.4,299.55,,A,wave,5 Apteronotus
@@ -133,23 +133,23 @@ Date,filename,estimated upstream position (m),position comments,conductivity (Mi
 2014-21-05,EN009,11,,0,26.4,299.55,,B,wave,1 Apteronotus
 2014-21-05,EN011,16,,0,26.4,299.55,,B,wave,1 Apteronotus
 2014-21-05,EN012,18,,0,26.4,299.55,,B,wave,many fish
-2014-21-05,EN013,18,,0,26.4,299.55,,C,wave,many fish
-2014-21-05,EN014,18,,0,26.4,299.55,,C,wave,many fish
-2014-21-05,EN015,18,,0,26.4,299.55,,C,wave,many fish
-2014-21-05,EN016,18,,0,26.4,299.55,,C,wave,many fish
-2014-21-05,EN017,18,,0,26.4,299.55,,C,wave,many fish
-2014-21-05,EN018,18,,0,26.4,299.55,,C,wave,many fish
-2014-21-05,EN019,18,,0,26.4,299.55,,C,wave,many fish
-2014-21-05,EN020,34,otherside,0,26.4,299.55,,E,wave,3 Apteronotus
-2014-21-05,EN021,32,,0,26.4,299.55,,E,wave,3 Apteronotus
-2014-21-05,EN022,24,,0,26.4,299.55,,F,wave,1 Apteronotus
-2014-21-05,EN023,18,,0,26.4,299.55,,F,wave,3 Apteronotus
-2014-21-05,EN024,15,,0,26.4,299.55,,F,wave,1 Apteronotus
-2014-21-05,EN025,12,,0,26.4,299.55,,G,wave,"4 Sternopygus, 3 Apteronotus"
-2014-21-05,EN026,12,,0,26.4,299.55,,G,wave,"3 Sternopygus, 3 Apteronotus"
-2014-21-05,EN027,11,,0,26.4,299.55,,G,wave,"3 Sternopygus, 6 Apteronotus"
-2014-21-05,EN028,10.7,,0,26.4,299.55,,G,wave,"5 Sternopygus, 5 Apteronotus"
-2014-21-05,EN029,9.5,,0,26.4,299.55,,G,wave,"3 Sternopygus, 3 Apteronotus"
+2014-21-05,EN013,18,,0,26.4,299.55,,B,wave,many fish
+2014-21-05,EN014,18,,0,26.4,299.55,,B,wave,many fish
+2014-21-05,EN015,18,,0,26.4,299.55,,B,wave,many fish
+2014-21-05,EN016,18,,0,26.4,299.55,,B,wave,many fish
+2014-21-05,EN017,18,,0,26.4,299.55,,B,wave,many fish
+2014-21-05,EN018,18,,0,26.4,299.55,,B,wave,many fish
+2014-21-05,EN019,18,,0,26.4,299.55,,B,wave,many fish
+2014-21-05,EN020,34,otherside,0,26.4,299.55,,D,wave,3 Apteronotus
+2014-21-05,EN021,32,,0,26.4,299.55,,D,wave,3 Apteronotus
+2014-21-05,EN022,24,,0,26.4,299.55,,E,wave,1 Apteronotus
+2014-21-05,EN023,18,,0,26.4,299.55,,E,wave,3 Apteronotus
+2014-21-05,EN024,15,,0,26.4,299.55,,E,wave,1 Apteronotus
+2014-21-05,EN025,12,,0,26.4,299.55,,F,wave,"4 Sternopygus, 3 Apteronotus"
+2014-21-05,EN026,12,,0,26.4,299.55,,F,wave,"3 Sternopygus, 3 Apteronotus"
+2014-21-05,EN027,11,,0,26.4,299.55,,F,wave,"3 Sternopygus, 6 Apteronotus"
+2014-21-05,EN028,10.7,,0,26.4,299.55,,F,wave,"5 Sternopygus, 5 Apteronotus"
+2014-21-05,EN029,9.5,,0,26.4,299.55,,F,wave,"3 Sternopygus, 3 Apteronotus"
 2014-22-05,EN002,5,,63.2,25.6,298.75,7.8,A,wave,"3 Sternopygus, 3 Apteronotus"
 2014-22-05,EN003,5,,63.2,25.6,298.75,7.8,A,pulse,1 Brachy
 2014-22-05,EN004,5.5,,63.2,25.6,298.75,7.8,A,wave,"2 Sternopygus, 1 Apteronotus"
@@ -158,23 +158,23 @@ Date,filename,estimated upstream position (m),position comments,conductivity (Mi
 2014-22-05,EN007,11,,63.2,25.6,298.75,7.8,B,wave,1 Apteronotus
 2014-22-05,EN008,14,,63.2,25.6,298.75,7.8,B,wave,1 Apteronotus
 2014-22-05,EN009,16,,63.2,25.6,298.75,7.8,B,wave,1 Apteronotus
-2014-22-05,EN010,18,,63.2,25.6,298.75,7.8,C,wave,1 Apteronotus
-2014-22-05,EN011,23,,63.2,25.6,298.75,7.8,D,wave ,"1 Apteronotus, clipped"
-2014-22-05,EN012,25,,63.2,25.6,298.75,7.8,D,wave,1 Apteronotus
-2014-22-05,EN013,40,otherside,63.2,25.6,298.75,7.8,E,wave,many fish
-2014-22-05,EN014,40,,63.2,25.6,298.75,7.8,E,wave,many Apteronotus
-2014-22-05,EN015,40,,63.2,25.6,298.75,7.8,E,wave,many fish
-2014-22-05,EN016,18,,63.2,25.6,298.75,7.8,F,wave,1 Apteronotus
-2014-22-05,EN017,15,,63.2,25.6,298.75,7.8,G,wave,"1 Sternopygus, 1 Apteronotus"
-2014-22-05,EN018,13,,63.2,25.6,298.75,7.8,G,wave,"5 Sternopygus, 3 Apteronotus"
-2014-22-05,EN019,13,,63.2,25.6,298.75,7.8,G,wave,"5 Sternopygus, 2 Apteronotus"
-2014-22-05,EN020,13,,63.2,25.6,298.75,7.8,G,wave,"2 Sternopygus, 1 Apteronotus"
-2014-22-05,EN021,12.6,,63.2,25.6,298.75,7.8,G,wave,2 Apteronotus
-2014-22-05,EN022,12.5,,63.2,25.6,298.75,7.8,G,wave,"1 Sternopygus, 5 Apteronotus"
-2014-22-05,EN023,12.4,,63.2,25.6,298.75,7.8,G,wave,"1 Sternopygus, 4 Apteronotus"
-2014-22-05,EN024,12.4,,63.2,25.6,298.75,7.8,G,wave,"1 Sternopygus, 5 Apteronotus"
-2014-22-05,EN025,12,,63.2,25.6,298.75,7.8,G,wave,3 Apteronotus
-2014-23-05,EN001,0.5,,74.2,26.6,299.75,7.9,G,pulse,1 Brachy
+2014-22-05,EN010,18,,63.2,25.6,298.75,7.8,B,wave,1 Apteronotus
+2014-22-05,EN011,23,,63.2,25.6,298.75,7.8,C,wave ,"1 Apteronotus, clipped"
+2014-22-05,EN012,25,,63.2,25.6,298.75,7.8,C,wave,1 Apteronotus
+2014-22-05,EN013,40,otherside,63.2,25.6,298.75,7.8,D,wave,many fish
+2014-22-05,EN014,40,,63.2,25.6,298.75,7.8,D,wave,many Apteronotus
+2014-22-05,EN015,40,,63.2,25.6,298.75,7.8,D,wave,many fish
+2014-22-05,EN016,18,,63.2,25.6,298.75,7.8,E,wave,1 Apteronotus
+2014-22-05,EN017,15,,63.2,25.6,298.75,7.8,F,wave,"1 Sternopygus, 1 Apteronotus"
+2014-22-05,EN018,13,,63.2,25.6,298.75,7.8,F,wave,"5 Sternopygus, 3 Apteronotus"
+2014-22-05,EN019,13,,63.2,25.6,298.75,7.8,F,wave,"5 Sternopygus, 2 Apteronotus"
+2014-22-05,EN020,13,,63.2,25.6,298.75,7.8,F,wave,"2 Sternopygus, 1 Apteronotus"
+2014-22-05,EN021,12.6,,63.2,25.6,298.75,7.8,F,wave,2 Apteronotus
+2014-22-05,EN022,12.5,,63.2,25.6,298.75,7.8,F,wave,"1 Sternopygus, 5 Apteronotus"
+2014-22-05,EN023,12.4,,63.2,25.6,298.75,7.8,F,wave,"1 Sternopygus, 4 Apteronotus"
+2014-22-05,EN024,12.4,,63.2,25.6,298.75,7.8,F,wave,"1 Sternopygus, 5 Apteronotus"
+2014-22-05,EN025,12,,63.2,25.6,298.75,7.8,F,wave,3 Apteronotus
+2014-23-05,EN001,0.5,,74.2,26.6,299.75,7.9,F,pulse,1 Brachy
 2014-23-05,EN002,3,,74.2,26.6,299.75,7.9,A,wave&pulse,"1 Apteronotus, 1 Brachy"
 2014-23-05,EN003,3.4,,74.2,26.6,299.75,7.9,A,wave,"1 Sternopygus, 2 Apteronotus"
 2014-23-05,EN004,4.3,,74.2,26.6,299.75,7.9,A,wave,"1 Sternopygus, 2 Apteronotus"
@@ -182,29 +182,29 @@ Date,filename,estimated upstream position (m),position comments,conductivity (Mi
 2014-23-05,EN006,6.1,,74.2,26.6,299.75,7.9,A,wave,"1 Sternopygus, 3 Apteronotus"
 2014-23-05,EN007,6.4,,74.2,26.6,299.75,7.9,A,pulse,1 Brachy
 2014-23-05,EN008,16.4,,74.2,26.6,299.75,7.9,B,wave,1 Apteronotus
-2014-23-05,EN009,26.4,,74.2,26.6,299.75,7.9,C,wave,1 Apteronotus
-2014-23-05,EN010,28.4,,74.2,26.6,299.75,7.9,C,wave,1 Apteronotus
-2014-23-05,EN011,38.4,,74.2,26.6,299.75,7.9,D,wave,2 Apteronotus
-2014-23-05,EN012,38.6,,74.2,26.6,299.75,7.9,D,wave,2 Apteronotus
-2014-23-05,EN013,38,otherside,74.2,26.6,299.75,7.9,E,wave,many fish
-2014-23-05,EN014,38,,74.2,26.6,299.75,7.9,E,wave,many fish
-2014-23-05,EN015,38,,74.2,26.6,299.75,7.9,E,wave,many fish
-2014-23-05,EN016,38,,74.2,26.6,299.75,7.9,E,wave,many fish
-2014-23-05,EN017,38,,74.2,26.6,299.75,7.9,E,wave,many fish
-2014-23-05,EN018,38,,74.2,26.6,299.75,7.9,E,wave,many fish
-2014-23-05,EN019,30,,74.2,26.6,299.75,7.9,F,wave,1 Apteronotus
-2014-23-05,EN020,29.5,,74.2,26.6,299.75,7.9,F,wave,"2 Sternopygus, 2 Apteronotus"
-2014-23-05,EN021,18,,74.2,26.6,299.75,7.9,F,pulse,1 Brachy
-2014-23-05,EN022,17.8,,74.2,26.6,299.75,7.9,F,pulse,1 Brachy
-2014-23-05,EN023,16,,74.2,26.6,299.75,7.9,F,wave,"1 Sternopygus, 1 Apteronotus"
-2014-23-05,EN025,15.5,,74.2,26.6,299.75,7.9,F,wave,1 Apteronotus
-2014-23-05,EN026,15,,74.2,26.6,299.75,7.9,G,wave,many fish
-2014-23-05,EN027,12.5,,74.2,26.6,299.75,7.9,G,wave,"4 Sternopygus, 2 Apteronotus"
-2014-23-05,EN028,12.1,,74.2,26.6,299.75,7.9,G,wave,"3 Sternopygus, 3 Apteronotus"
-2014-23-05,EN029,11.6,,74.2,26.6,299.75,7.9,G,wave,"1 Sternopygus, 2 Apteronotus"
-2014-23-05,EN030,11,,74.2,26.6,299.75,7.9,G,wave,2 Apteronotus
-2014-23-05,EN031,10.6,,74.2,26.6,299.75,7.9,G,wave,3 Apteronotus
-2014-23-05,EN032,11,,74.2,26.6,299.75,7.9,G,wave,3 Apteronotus
+2014-23-05,EN009,26.4,,74.2,26.6,299.75,7.9,B,wave,1 Apteronotus
+2014-23-05,EN010,28.4,,74.2,26.6,299.75,7.9,B,wave,1 Apteronotus
+2014-23-05,EN011,38.4,,74.2,26.6,299.75,7.9,C,wave,2 Apteronotus
+2014-23-05,EN012,38.6,,74.2,26.6,299.75,7.9,C,wave,2 Apteronotus
+2014-23-05,EN013,38,otherside,74.2,26.6,299.75,7.9,D,wave,many fish
+2014-23-05,EN014,38,,74.2,26.6,299.75,7.9,D,wave,many fish
+2014-23-05,EN015,38,,74.2,26.6,299.75,7.9,D,wave,many fish
+2014-23-05,EN016,38,,74.2,26.6,299.75,7.9,D,wave,many fish
+2014-23-05,EN017,38,,74.2,26.6,299.75,7.9,D,wave,many fish
+2014-23-05,EN018,38,,74.2,26.6,299.75,7.9,D,wave,many fish
+2014-23-05,EN019,30,,74.2,26.6,299.75,7.9,E,wave,1 Apteronotus
+2014-23-05,EN020,29.5,,74.2,26.6,299.75,7.9,E,wave,"2 Sternopygus, 2 Apteronotus"
+2014-23-05,EN021,18,,74.2,26.6,299.75,7.9,E,pulse,1 Brachy
+2014-23-05,EN022,17.8,,74.2,26.6,299.75,7.9,E,pulse,1 Brachy
+2014-23-05,EN023,16,,74.2,26.6,299.75,7.9,E,wave,"1 Sternopygus, 1 Apteronotus"
+2014-23-05,EN025,15.5,,74.2,26.6,299.75,7.9,E,wave,1 Apteronotus
+2014-23-05,EN026,15,,74.2,26.6,299.75,7.9,F,wave,many fish
+2014-23-05,EN027,12.5,,74.2,26.6,299.75,7.9,F,wave,"4 Sternopygus, 2 Apteronotus"
+2014-23-05,EN028,12.1,,74.2,26.6,299.75,7.9,F,wave,"3 Sternopygus, 3 Apteronotus"
+2014-23-05,EN029,11.6,,74.2,26.6,299.75,7.9,F,wave,"1 Sternopygus, 2 Apteronotus"
+2014-23-05,EN030,11,,74.2,26.6,299.75,7.9,F,wave,2 Apteronotus
+2014-23-05,EN031,10.6,,74.2,26.6,299.75,7.9,F,wave,3 Apteronotus
+2014-23-05,EN032,11,,74.2,26.6,299.75,7.9,F,wave,3 Apteronotus
 2014-24-05,EN033,3,,63.2,27.8,300.95,7.7,A,wave,"1 Sternopygus, 1 Apteronotus"
 2014-24-05,EN034,4,,63.2,27.8,300.95,7.7,A,wave,2 Apteronotus
 2014-24-05,EN035,4,,63.2,27.8,300.95,7.7,A,wave,2 Apteronotus
@@ -213,22 +213,22 @@ Date,filename,estimated upstream position (m),position comments,conductivity (Mi
 2014-24-05,EN038,9.4,,63.2,27.8,300.95,7.7,B,wave,2 Apteronotus
 2014-24-05,EN039,14.4,,63.2,27.8,300.95,7.7,B,wave,1 Apteronotus
 2014-24-05,EN040,17.4,,63.2,27.8,300.95,7.7,B,wave,1 Apteronotus
-2014-24-05,EN041,20.4,,63.2,27.8,300.95,7.7,C,wave,1 Apteronotus
-2014-24-05,EN042,25.4,,63.2,27.8,300.95,7.7,C,wave,1 Apteronotus
-2014-24-05,EN044,40,otherside,63.2,27.8,300.95,7.7,E,wave,1 Apteronotus
-2014-24-05,EN045,38,,63.2,27.8,300.95,7.7,E,wave,many Apteronotus
-2014-24-05,EN046,38,,63.2,27.8,300.95,7.7,E,wave,many fish
-2014-24-05,EN047,38,,63.2,27.8,300.95,7.7,E,wave,many fish
-2014-24-05,EN048,38,,63.2,27.8,300.95,7.7,E,wave,many Apteronotus
-2014-24-05,EN049,16,,63.2,27.8,300.95,7.7,F,wave,"3 Sternopygus, 2 Apteronotus"
-2014-24-05,EN050,15,,63.2,27.8,300.95,7.7,G,wave,"3 Sternopygus, 2 Apteronotus"
-2014-24-05,EN051,13,,63.2,27.8,300.95,7.7,G,wave,1 Apteronotus
-2014-24-05,EN052,5,,63.2,27.8,300.95,7.7,G,wave/pulse,"1 Brachy, 1 Apteronotus"
-2014-24-05,EN053,5,,63.2,27.8,300.95,7.7,G,wave,"1 Sternopygus, 3 Apteronotus"
-2014-24-05,EN054,2,,63.2,27.8,300.95,7.7,G,wave,"1 Sternopygus, 2 Apteronotus"
-2014-24-05,EN055,13,,63.2,27.8,300.95,7.7,G,wave/pulse,"1 Brachy, 1 Apteronotus"
-2014-24-05,EN056,12.5,,63.2,27.8,300.95,7.7,G,wave,"3 Sternopygus, 2 Apteronotus"
-2014-24-05,EN057,12,,63.2,27.8,300.95,7.7,G,wave,"2 Sternopygus, 2 Apteronotus"
-2014-24-05,EN058,11,,63.2,27.8,300.95,7.7,G,wave/pulse,"2 Apteronotus, 1 Brachy"
-2014-24-05,EN059,10.2,,63.2,27.8,300.95,7.7,G,wave/pulse,"3 Apteronotus, 1 Brachy"
-2014-24-05,EN060,10.2,,63.2,27.8,300.95,7.7,G,wave/pulse,"2 Apteronotus, 1 Brachy"
+2014-24-05,EN041,20.4,,63.2,27.8,300.95,7.7,B,wave,1 Apteronotus
+2014-24-05,EN042,25.4,,63.2,27.8,300.95,7.7,B,wave,1 Apteronotus
+2014-24-05,EN044,40,otherside,63.2,27.8,300.95,7.7,D,wave,1 Apteronotus
+2014-24-05,EN045,38,,63.2,27.8,300.95,7.7,D,wave,many Apteronotus
+2014-24-05,EN046,38,,63.2,27.8,300.95,7.7,D,wave,many fish
+2014-24-05,EN047,38,,63.2,27.8,300.95,7.7,D,wave,many fish
+2014-24-05,EN048,38,,63.2,27.8,300.95,7.7,D,wave,many Apteronotus
+2014-24-05,EN049,16,,63.2,27.8,300.95,7.7,E,wave,"3 Sternopygus, 2 Apteronotus"
+2014-24-05,EN050,15,,63.2,27.8,300.95,7.7,F,wave,"3 Sternopygus, 2 Apteronotus"
+2014-24-05,EN051,13,,63.2,27.8,300.95,7.7,F,wave,1 Apteronotus
+2014-24-05,EN052,5,,63.2,27.8,300.95,7.7,F,wave/pulse,"1 Brachy, 1 Apteronotus"
+2014-24-05,EN053,5,,63.2,27.8,300.95,7.7,F,wave,"1 Sternopygus, 3 Apteronotus"
+2014-24-05,EN054,2,,63.2,27.8,300.95,7.7,F,wave,"1 Sternopygus, 2 Apteronotus"
+2014-24-05,EN055,13,,63.2,27.8,300.95,7.7,F,wave/pulse,"1 Brachy, 1 Apteronotus"
+2014-24-05,EN056,12.5,,63.2,27.8,300.95,7.7,F,wave,"3 Sternopygus, 2 Apteronotus"
+2014-24-05,EN057,12,,63.2,27.8,300.95,7.7,F,wave,"2 Sternopygus, 2 Apteronotus"
+2014-24-05,EN058,11,,63.2,27.8,300.95,7.7,F,wave/pulse,"2 Apteronotus, 1 Brachy"
+2014-24-05,EN059,10.2,,63.2,27.8,300.95,7.7,F,wave/pulse,"3 Apteronotus, 1 Brachy"
+2014-24-05,EN060,10.2,,63.2,27.8,300.95,7.7,F,wave/pulse,"2 Apteronotus, 1 Brachy"
