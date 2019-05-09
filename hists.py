@@ -181,7 +181,7 @@ if __name__ == '__main__':
     #
     # fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
 
-    sex_fig, sex_ax = plt.subplots(1, len(habitats), figsize=(15,6), facecolor='w', edgecolor='k', sharex=True)
+    sex_fig, sex_ax = plt.subplots(1, len(habitats), figsize=(15,6), facecolor='w', edgecolor='k')
     sex_fig.subplots_adjust(hspace=.5, wspace=.001)
     sex_ax = sex_ax.ravel()
     overall_female_freqs = []
