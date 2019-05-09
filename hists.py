@@ -182,6 +182,8 @@ if __name__ == '__main__':
     # fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
 
     sex_fig, sex_ax = plt.subplots(1, len(habitats), figsize=(15,6), facecolor='w', edgecolor='k', sharex=True)
+    sex_fig.subplots_adjust(hspace=.5, wspace=.001)
+    sex_ax = sex_ax.ravel()
     overall_female_freqs = []
     overall_male_freqs = []
     overall_sex_freqs = []
@@ -191,12 +193,17 @@ if __name__ == '__main__':
         all_day_freqs = []
         female_day_freqs = []
         male_day_freqs = []
+        fish_counts = [[], []]
         for j in range(len(habitat_freq_mat)):
             day_freqs = habitat_freq_mat[j]
 
             female_day_freqs = ([x for x in day_freqs if (x > 500.0) and (x < 700.0)])
             male_day_freqs = ([x for x in day_freqs if (x > 700.0) and (x < 1000.0)])
-            sex_day_freqs = [[female_day_freqs], [male_day_freqs]]
+            sex_day_freqs = [female_day_freqs, male_day_freqs]
+            print(sex_day_freqs)
+            for k in range(len(sex_day_freqs)):
+                fish_counts[k].append(len(sex_day_freqs[k]))
+
 
             temp = np.unique(data[habitats[i]][habitat_dates[j]]['temp'])[0]
             temp_freqs = q10_normalizer(day_freqs, temp)
@@ -218,9 +225,14 @@ if __name__ == '__main__':
             all_norm_temp_freqs += temp_freqs
             all_diff_freqs += diff_freqs
             diff_freqs_w_abs += diff_freqs_no_abs
-        # embed()
-        # exit()
-        # flat_all_habitat_freqs = flatten_ls(all_day_freqs)
+
+        sex_ax[i].hist(fish_counts)
+        sex_ax[i].set_title(habitats[i])
+        sex_ax[i].set_xlabel('dates')
+        sex_ax[i].set_ylabel('fish count')
+        sex_ax[i].set_xticks(range(len(fish_counts)))
+        sex_ax[i].set_xticklabels(dates, rotation=45)
+        sex_ax[i].set_ylim([0, 4])
         # flat_temp_freqs = flatten_ls(all_norm_temp_freqs)
         all_freqs += all_day_freqs
         all_temp_freqs += all_norm_temp_freqs
