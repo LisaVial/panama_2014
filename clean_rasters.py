@@ -39,7 +39,6 @@ def extract_freqs_from_array(arr):
 
     freqs = []
     for pairs in arr:
-        embed()
         freqs.append(pairs[0])
 
     return freqs
@@ -132,56 +131,39 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     habitat_freq_mat = []
     habitat_temp_mat = []
 
-    fig, ax = plt.subplots()
-    temp_fig, temp_ax = plt.subplots()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True, sharey=True)
     for index in range(len(dates)):
         date = dates[index]
         temp = np.unique(habitat_data[date]['temp'])
         freqs = habitat_data[date]['freqs_and_amps']
-        cleaned_freqs = eodfs_cleaner(freqs, 0.5)
-        temp_freqs = q10_normalizer(cleaned_freqs, temp)
-        embed()
-        exit()
+        cleaned_freqs = eodfs_cleaner(freqs, 1)
+        temp_freqs = cleaned_freqs * (1.62 ** ((299.65 - temp) / 10))
         final_freqs = freqs_from_date(cleaned_freqs)
         final_temp_freqs = freqs_from_date(temp_freqs)
         habitat_freq_mat.append(final_freqs)
         habitat_temp_mat.append(final_temp_freqs)
-
-    ax.set_title('Habitat ' + habitat_id)
-    ax.set_xlabel('frequencies [Hz]')
-    ax.set_ylabel('dates')
-    ax.set_xlim(500, 1000)
-    ax.set_yticks([1, 2, 3, 4, 5, 6, 7, 8])
-    ax.set_yticklabels(dates)
+    print(habitat_temp_mat)
+    ax1.set_title('Habitat ' + habitat_id)
+    ax1.set_xlabel('frequencies [Hz]')
+    ax1.set_ylabel('dates')
+    ax1.set_xlim(500, 1000)
+    ax1.set_yticks(range(len(dates)))
+    ax1.set_yticklabels(dates)
     # fig.savefig('Habitat_' + habitat_id + '.pdf')
-    ax.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
-    plt.show()
+    ax1.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
+    # plt.show()
 
-    temp_ax.set_title('Q 10 corrected frequencies')
-    temp_ax.set_xlabel('frequencies [Hz]')
-    temp_ax.set_ylabel('dates')
-    temp_ax.set_xlim(500, 1000)
-    temp_ax.set_yticks([1, 2, 3, 4, 5, 6, 7, 8])
-    temp_ax.set_yticklabels(dates)
+    ax2.set_title('Q 10 corrected frequencies')
+    ax2.set_xlabel('frequencies [Hz]')
+    ax2.set_ylabel('dates')
+    ax2.set_xlim(500, 1000)
+    ax2.set_yticks(range(len(dates)))
+    ax2.set_yticklabels(dates)
     # fig.savefig('Habitat_' + habitat_id + '.pdf')
-    temp_ax.eventplot(habitat_temp_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
+    ax2.eventplot(habitat_temp_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
     plt.show()
     return habitat_freq_mat
 
-
-def q10_normalizer(freqs, current_temperature):
-    # ... to be continued
-    # this function normalizes the frequencies of weakly electric fish according to the q10 value
-    # input:
-    # frequencies: flat lists of different fish frequencies
-    corr_f = []
-    for i in np.arange(len(freqs)):
-        if len(freqs[i]) > 1:
-            for j in range(len(freqs[i])):
-                corr_f.append(freqs[i][j] * (1.62 ** ((299.65 - current_temperature) / 10)))
-        else:
-            corr_f.append(freqs[i][0] * (1.62 ** ((299.65 - current_temperature) / 10)))
-    return corr_f
 
 
 def colors_func(idx):
