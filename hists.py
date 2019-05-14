@@ -15,20 +15,6 @@ def get_dates(data_dict):
     return unique_dates
 
 
-def flatten_ls(data):
-    f_ls = []
-    # embed()
-    for i in range(len(data)):
-        for j in range(len(data[i])):
-            if type(data[i][j]) == np.ndarray:
-                freq = data[i][j][0]
-            else:
-                freq = data[i][j]
-            f_ls += freq
-
-    return f_ls
-
-
 def extract_freqs_from_array(arr):
     # extract frequencies from dictionary arrays
     # input:
@@ -40,7 +26,7 @@ def extract_freqs_from_array(arr):
     for pairs in arr:
         freqs.append(pairs[0])
 
-    return freqs
+    return np.asarray(freqs)
 
 
 def freqs_from_date(list_of_lists):
@@ -124,12 +110,6 @@ def colors_func(idx):
     return list[idx % len(list)]
 
 
-def onclick(event):
-    print('%s click: button=%d, x=%d, y=%d, xdata=%f, ydata=%f' %
-          ('double' if event.dblclick else 'single', event.button,
-           event.x, event.y, event.xdata, event.ydata))
-
-
 def hab_mat_creator(habitat_data, habitat_id):
     # the function gets weakly electric fish recordings. These recordings are sorted and portrayed as a raster plot,
     # containing the different fish frequencies, which were found in each habitat for each day
@@ -166,49 +146,59 @@ if __name__ == '__main__':
     habitats.sort()
     dates = get_dates(data)
 
-
     all_freqs = []
     all_diff_freqs = []
     all_temp_freqs = []
     diff_freqs_w_abs = []
-    # fig, axs = plt.subplots(1, len(habitats), figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True)
-    # fig.subplots_adjust(hspace=.5, wspace=.001)
-    # axs = axs.ravel()
-    #
-    # fig_2, ax_2 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
-    #
-    # fig_3, ax_3 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
-    #
-    # fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
+
+    fig, axs = plt.subplots(1, len(habitats), figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True)
+    fig.subplots_adjust(hspace=.5, wspace=.001)
+    axs = axs.ravel()
+
+
+
+    fig_2, ax_2 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
+
+    fig_3, ax_3 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
+
+    fig_4, ax_4 = plt.subplots(figsize=(15, 6), facecolor='w', edgecolor='k')
 
     sex_fig, sex_ax = plt.subplots(1, len(habitats), figsize=(15,6), facecolor='w', edgecolor='k')
     sex_fig.subplots_adjust(hspace=.5, wspace=.001)
     sex_ax = sex_ax.ravel()
+
+    colors = ['#BA2D22', '#3673A4']
+
     overall_female_freqs = []
     overall_male_freqs = []
     overall_sex_freqs = []
+
     for i in range(len(habitats)):
         habitat_freq_mat, habitat_dates = hab_mat_creator(data[habitats[i]], habitats[i])
+        dates = list(data[habitats[i]].keys())
+        dates.sort()
+
         all_norm_temp_freqs = []
         all_day_freqs = []
+
         female_day_freqs = []
         male_day_freqs = []
         fish_counts = [[], []]
+
         for j in range(len(habitat_freq_mat)):
             day_freqs = habitat_freq_mat[j]
 
-            female_day_freqs = ([x for x in day_freqs if (x > 500.0) and (x < 700.0)])
+            female_day_freqs = ([x for x in day_freqs if (x > 500.0) and (x < 700.0)])# day_freqs[(day_freqs>500.0)&(day_freqs<700.0)]
             male_day_freqs = ([x for x in day_freqs if (x > 700.0) and (x < 1000.0)])
             sex_day_freqs = [female_day_freqs, male_day_freqs]
-            print(sex_day_freqs)
             for k in range(len(sex_day_freqs)):
                 fish_counts[k].append(len(sex_day_freqs[k]))
-
 
             temp = np.unique(data[habitats[i]][habitat_dates[j]]['temp'])[0]
             temp_freqs = q10_normalizer(day_freqs, temp)
             # lambda function in mapping function, with map() a new list is returned which contains items returned by
             # that function for each item (from docu).
+
             diff_freqs_no_abs = []
             for x in range(len(temp_freqs)):
                     # diff_freqs_no_abs += [(temp_freqs[x] - temp_freqs[y]) for y in range(x+1, len(temp_freqs))]
@@ -226,74 +216,77 @@ if __name__ == '__main__':
             all_diff_freqs += diff_freqs
             diff_freqs_w_abs += diff_freqs_no_abs
 
-        sex_ax[i].hist(fish_counts)
+        barWidth = 0.5
+        xses = range(len(dates))
+        xses2 = [x + barWidth for x in xses]
+        sex_ax[i].bar(xses, fish_counts[0], width=barWidth, color=colors[0], label='females')
+        sex_ax[i].bar(xses2, fish_counts[1], width=barWidth, color=colors[1], label='males')
         sex_ax[i].set_title(habitats[i])
         sex_ax[i].set_xlabel('dates')
-        sex_ax[i].set_ylabel('fish count')
-        sex_ax[i].set_xticks(range(len(fish_counts)))
+        sex_ax[0].set_ylabel('fish count')
+        sex_ax[i].set_xticks(range(len(dates)))
         sex_ax[i].set_xticklabels(dates, rotation=45)
-        sex_ax[i].set_ylim([0, 4])
-        # flat_temp_freqs = flatten_ls(all_norm_temp_freqs)
+        plt.legend(loc='best')
+
         all_freqs += all_day_freqs
         all_temp_freqs += all_norm_temp_freqs
-
-        # if i == 6:
-        #     embed()
-        #     exit()
 
         # freq_diff = np.abs(np.diff(norm_day_freqs))
         kde = gaussian_kde(all_norm_temp_freqs, .05)
         xkde = np.arange(0, 1000, 0.5)
         ykde = kde(xkde)
 
-    #     axs[i].hist(all_day_freqs, bins=50, alpha=0.5, color='#BA2D22', label='original freqs')
-    #     axs[i].hist(all_norm_temp_freqs, bins=50, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
-    #     axs[i].set_xlim([0, 1000])
-    #     axs[i].set_title('habitat ' + habitats[i])
-    #     axs[i].set_xlabel('frequencies [Hz]')
-    #     axs[i].set_ylabel('rate')
-    #     axs[i].legend(loc=1, frameon=False, ncol=2)
-    #     ax_2.plot(xkde, ykde, color=colors_func(i), label=habitats[i], linewidth=2)
-    #     plt.legend(ax=axs, loc=1, frame_on=False, ncol=2)
-    #     plt.legend(ax=ax_2, loc=1, frame_on=False, ncol=2)
-    #     plt.tight_layout()
-    # fig.show()
-    #
-    # # flat_freqs = flatten_ls(all_freqs)
-    # # flat_temp_freqs = flatten_ls(all_temp_freqs)
-    # # flat_diff_freqs = flatten_ls(all_diff_freqs)
-    # # rly_flat_diff_freqs = flatten_ls(flat_diff_freqs)
-    # # flat_diff_freqs_w_abs = flatten_ls(diff_freqs_w_abs)
-    # # rly_flat_diff_freqs_w_abs = flatten_ls(flat_diff_freqs_w_abs)
-    # all_kde = gaussian_kde(all_temp_freqs, .05)
-    # all_xkde = np.arange(0, 1000, 0.5)
-    # all_ykde = all_kde(all_xkde)
-    #
-    # ax_3.hist(all_freqs, bins=100, alpha=0.5, color='#BA2D22', label='original freqs')
-    # ax_3.hist(all_temp_freqs, bins=100, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
-    # # ax_2.plot(xkde, ykde, color=colors_func(i), linewidth=2)
-    # ax_2.plot(all_xkde, all_ykde, color='k', label='all frequencies', linewidth=4)
-    # ax_3.set_xlim([0, 1000])
-    # ax_3.set_xlabel('frequencies [Hz]')
-    # ax_3.set_ylabel('rate')
-    # ax_2.legend(loc=1, frameon=False, ncol=2, numpoints=1)
-    # ax_3.legend(loc=1, frameon=False, ncol=2, numpoints=1)
-    # ax_4.hist(all_diff_freqs, bins =50, alpha=0.5, color='#BA2D22')
-    # # plt.show()
-    # plt.hist(diff_freqs_w_abs, bins=100, alpha=0.6, color='#AAB71B')
-    # plt.show()
+        axs[i].hist(all_day_freqs, bins=50, alpha=0.5, color='#BA2D22', label='original freqs')
+        axs[i].hist(all_norm_temp_freqs, bins=50, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
+        axs[i].set_xlim([0, 1000])
+        axs[i].set_title('habitat ' + habitats[i])
+        axs[i].set_xlabel('frequencies [Hz]')
+        axs[i].set_ylabel('rate')
+        axs[i].legend(loc=1, frameon=False, ncol=2)
+        ax_2.plot(xkde, ykde, color=colors_func(i), label=habitats[i], linewidth=2)
+        plt.legend(loc=1, ncol=2)
+        plt.legend(loc=1, ncol=2)
+        plt.tight_layout()
+    plt.show()
+
+    all_kde = gaussian_kde(all_temp_freqs, .05)
+    all_xkde = np.arange(0, 1000, 0.5)
+    all_ykde = all_kde(all_xkde)
+
+    ax_3.hist(all_freqs, bins=100, alpha=0.5, color='#BA2D22', label='original freqs')
+    ax_3.hist(all_temp_freqs, bins=100, alpha=0.6, color='#AAB71B', label='Q_10 corrected')
+    # ax_2.plot(xkde, ykde, color=colors_func(i), linewidth=2)
+    ax_2.plot(all_xkde, all_ykde, color='k', label='all frequencies', linewidth=4)
+    ax_3.set_xlim([0, 1000])
+    ax_3.set_xlabel('frequencies [Hz]')
+    ax_3.set_ylabel('rate')
+    ax_2.legend(loc=1, frameon=False, ncol=2, numpoints=1)
+    ax_3.legend(loc=1, frameon=False, ncol=2, numpoints=1)
+    ax_4.hist(all_diff_freqs, bins =50, alpha=0.5, color='#BA2D22')
+    plt.show()
+
+    plt.hist(diff_freqs_w_abs, bins=100, alpha=0.6, color='#AAB71B')
+    plt.show()
 
     female_freqs = [x for x in all_freqs if (x > 500.0) and (x < 700.0)]
     diff_fem_freqs = []
     for x in range(len(female_freqs)):
         diff_fem_freqs += list(map(lambda y: np.abs(female_freqs[x] - female_freqs[y]), list(range(x+1, len(female_freqs)))))
+
     male_freqs = [x for x in all_freqs if (x > 700.0) and (x < 1000.0)]
     diff_male_freqs = []
     for x in range(len(male_freqs)):
         diff_male_freqs += list(map(lambda y: np.abs(male_freqs[x] - male_freqs[y]), list(range(x+1, len(male_freqs)))))
+
+    plt.hist(diff_fem_freqs)
+    plt.title('female difference frequencies')
+    plt.show()
+    plt.hist(diff_male_freqs)
+    plt.title('male difference frequencies')
+    plt.show()
+
     sex_freqs = [[diff_fem_freqs], [diff_male_freqs]]
-    # embed()
-    # exit()
+
     fig, ax1 = plt.subplots(facecolor='w', edgecolor='k', sharex=True)
     ax1.set_title('Females and Males')
     ax1.boxplot(sex_freqs)
