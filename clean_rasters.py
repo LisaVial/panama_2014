@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython import embed
+from thunderfish.harmonicgroups import unique
 
 def get_dates(data_dict):
     """
@@ -136,7 +137,10 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
         date = dates[index]
         temp = np.unique(habitat_data[date]['temp'])
         freqs = habitat_data[date]['freqs_and_amps']
-        cleaned_freqs = eodfs_cleaner(freqs, 1)
+        embed()
+        exit()
+        ori_cleaned_freqs = eodfs_cleaner(freqs, 1)
+        cleaned_freqs = unique(freqs, 1, mode='power')
         temp_freqs = cleaned_freqs * (1.62 ** ((299.65 - temp) / 10))
         final_freqs = freqs_from_date(cleaned_freqs)
         final_temp_freqs = freqs_from_date(temp_freqs)
