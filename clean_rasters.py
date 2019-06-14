@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython import embed
-from thunderfish.harmonicgroups import unique
+from thunderfish.harmonicgroups import unique, similar_indices
 
 def get_dates(data_dict):
     """
@@ -131,12 +131,19 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     # exit()
     habitat_freq_mat = []
     habitat_temp_mat = []
+    color_mask = []
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True, sharey=True)
+
     for index in range(len(dates)):
         date = dates[index]
         temp = np.unique(habitat_data[date]['temp'])
         freqs = habitat_data[date]['freqs_and_amps']
+        color_mask.append(np.zeros(len(freqs), dtype=bool))
+        color_mask_idx = np.asarray(similar_indices(freqs, 5))
+        print(color_mask_idx, type(color_mask_idx))
+        # np.asarray(color_mask)
+        # print(color_mask[color_mask_idx])
         ori_cleaned_freqs = eodfs_cleaner(freqs, 1)
         cleaned_freqs = unique(freqs, 1, mode='power')
         temp_freqs = cleaned_freqs * (1.62 ** ((299.65 - temp) / 10))
@@ -144,6 +151,12 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
         final_temp_freqs = freqs_from_date(temp_freqs)
         habitat_freq_mat.append(final_freqs)
         habitat_temp_mat.append(final_temp_freqs)
+    # embed()
+    # exit()
+
+
+
+
     print(habitat_temp_mat)
     ax1.set_title('Habitat ' + habitat_id)
     ax1.set_xlabel('frequencies [Hz]')
