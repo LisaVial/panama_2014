@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython import embed
-from thunderfish.harmonicgroups import unique, similar_indices
+from thunderfish.harmonicgroups import unique
+
 
 def get_dates(data_dict):
     """
@@ -115,52 +116,57 @@ def eodfs_cleaner(eodfs, df_thresh):
     return final_data
 
 
-def indices_similar_freqs(freq_mat, df_thresh):
-    # embed()
-    # quit()
+def find_similar_freqs(freq_mat, df_thresh):
+    """""""""
+    This function gets the finnished frequency matrices and compares frequencies, that are stored in them, to find
+    similar frequencis over different days
+
+    Parameters
+    ----------
+    freq_mat: list of lists, where each list represents fish frequencies of weakly electric fish that were present in
+              habitat at one day
+    df_thresh: How much (in Hz) can the fish frequencies differ, so that the algorithm still recognizes them as similar
+
+    Returns
+    -------
+    cp_freq_mat: list of list, where each 'day list' has the same length as the 'day list' of maximum length
+    mask: mask in the same shape of the cp_freq_mat, in which the same numbers indicate where similar freqs are located
+          in the cp_freq_mat
+
+    """""""""
+    # get list with maximum length among all recordings of different dates in one habitat
     max_len = np.max(list(map(lambda x: len(x), freq_mat)))
+    # construct a matrix, in which each day list has the length of the list with maximum length (the rest is filled with
+    # nans)
     cp_freq_mat = np.full((len(freq_mat), max_len), np.nan)
     for i in range(len(freq_mat)):
-        cp_freq_mat[i, :len(freq_mat[i])] = freq_mat[i]
-    mask = np.full(np.shape(cp_freq_mat), np.nan)
-    uni_freq = np.unique(np.hstack(cp_freq_mat))
+        cp_freq_mat[i, :len(freq_mat[i])] = freq_mat[i]     # fill new matrix with values from the previous analysis
+    mask = np.full(np.shape(cp_freq_mat), np.nan)           # construct a second matrix, that works as boolean mask
+    uni_freq = np.unique(np.hstack(cp_freq_mat))            # flatten all unique freqs of the constructed matrix
 
-    id_counter = 0
+    id_counter = 0                                          # set up counter for logical indexing later on
     for f in uni_freq:
+        # unravel indices, where single freqs are less than (e.g.) 5 Hertz apart from each other
         i0s, i1s = np.unravel_index(np.argsort(np.abs(cp_freq_mat - f), axis=None), np.shape(cp_freq_mat))
-        for i0, i1 in zip(i0s, i1s):
-            if cp_freq_mat[i0, i1] - f == 0:
-                ori_i0, ori_i1 = i0, i1
+        for i0, i1 in zip(i0s, i1s):            # iterate through newly found indices
+            if cp_freq_mat[i0, i1] - f == 0:    # if original freq gets compared to itself, skip that one and
+                ori_i0, ori_i1 = i0, i1         # set the current indices to original indices
 
-            if np.isnan(mask[ori_i0, ori_i1]):
-                id = id_counter
+            if np.isnan(mask[ori_i0, ori_i1]):  # change numbers in the mask, so the numbers show, where equal
+                id = id_counter                 # frequencies appear within the recordings
                 id_counter += 1
                 mask[ori_i0, ori_i1] = id
             else:
                 id = mask[ori_i0, ori_i1]
 
-            if np.abs(cp_freq_mat[i0, i1] - f) < df_thresh:
+            if np.abs(cp_freq_mat[i0, i1] - f) < df_thresh:     # check again, if we are at the right place in the mask
                 if np.isnan(mask[i0, i1]):
-                    mask[i0, i1] = id
-            else:
+                    mask[i0, i1] = id                           # change number at index, so you know, to which
+            else:                                               # frequencies the current one belongs
                 continue
 
-    # fig, ax = plt.subplots()
-    # for i in np.unique(mask)[~np.isnan(np.unique(mask))]:
-    #     ax.plot(np.ones(len(cp_freq_mat[mask == i])) * i, cp_freq_mat[mask == i], 'o')
-    # # plt.show()
-
-    # embed()
-    # exit()
-    # for freq_ls_idx in range(len(freq_mat)):
-    #     for freq_idx in range(len(freq_mat[freq_ls_idx])):
-    #         freq1 = freq_mat[freq_ls_idx][freq_idx]
-    #         nn = len(freq_mat) if nextfs == 0 else freq_ls_idx+1+nextfs
-    #         if nn > len(freq_mat):
-    #             nn = len(freq_mat)
-    #         # for comp_idx in range(freq_ls_idx+1, nn):
-
     return cp_freq_mat, mask
+
 
 def rasterplot_for_habitat(habitat_data, habitat_id):
     """
@@ -185,9 +191,6 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     habitat_freq_mat = []
     habitat_temp_mat = []
 
-    similar_freqs = []
-    similar_freq_mat = []
-
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True, sharey=True)
 
     for index in range(len(dates)):
@@ -196,16 +199,6 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
         temp = np.unique(habitat_data[date]['temp'])
         freqs = habitat_data[date]['freqs_and_amps']
 
-        index_list = similar_indices(freqs, 5)
-        # for indices in index_list:
-        #     for elements in indices:
-        #         for single_tuples in elements:
-        #             similar_freqs.append(freqs[single_tuples[0]][single_tuples[1]])
-        #
-        # similar_freq_mat.append(final_similar_freqs)
-        # embed()
-        # exit()
-
         ori_cleaned_freqs = eodfs_cleaner(freqs, 1)
         cleaned_freqs = unique(freqs, 1, mode='power')
         temp_freqs = cleaned_freqs * (1.62 ** ((299.65 - temp) / 10))
@@ -213,18 +206,16 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
 
         final_freqs = freqs_from_date(cleaned_freqs)
         final_temp_freqs = freqs_from_date(temp_freqs)
-        final_similar_freqs = freqs_from_date(similar_freqs)
 
         habitat_freq_mat.append(final_freqs)
         habitat_temp_mat.append(final_temp_freqs)
 
+    cp_freq_mat, mask = find_similar_freqs(habitat_temp_mat, 5)
     # embed()
     # exit()
-    cp_freq_mat, mask = indices_similar_freqs(habitat_temp_mat, 5)
-    fig, ax = plt.subplots()
-    for i in np.unique(mask)[~np.isnan(np.unique(mask))]:
-        ax.plot(np.ones(len(cp_freq_mat[mask == i])) * i, cp_freq_mat[mask == i], 'o')
-    # plt.show()
+    # fig, ax = plt.subplots()
+    # for i in np.unique(mask)[~np.isnan(np.unique(mask))]:
+    #     ax.plot(np.ones(len(cp_freq_mat[mask == i])) * i, cp_freq_mat[mask == i], 'o')
 
     colors = np.random.rand(int(np.nanmax(mask)), 3)
     color_mask = np.full((*np.shape(mask), 3), 0)
@@ -232,7 +223,6 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     for i in range(int(np.nanmax(mask))):
         if len(color_mask[mask == i]) > 3:
             color_mask[mask == i] = colors[i]
-
     list_freq_mat = []
     list_color_mask = []
     list_dada = []
@@ -241,22 +231,22 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
         list_freq_mat.append(list(cp_freq_mat[i][~np.isnan(cp_freq_mat[i])]))
         for c in color_mask[i][~np.isnan(cp_freq_mat[i])]:
             list_color_mask.append(c)
-        # list_color_mask.extend(list(color_mask[i][~np.isnan(cp_freq_mat[i])]))
         list_dada.extend(np.ones(len(cp_freq_mat[i][~np.isnan(cp_freq_mat[i])])) * i)
 
+    color = []
+    for i in range(len(list_color_mask)):
+        color.append(list(list_color_mask[i]))
     plt.figure()
-    plt.scatter(np.hstack(list_freq_mat), list_dada, color=np.array(list_color_mask), s = 50)
-    plt.show()
-    # plt.figure()
-    # plt.eventplot(list_freq_mat, colors=list_color_mask)
-    # plt.show()
-    embed()
-    quit()
+
     for i in np.unique(mask)[~np.isnan(np.unique(mask))]:
-        c = np.random.rand(3)
+        # c = np.random.rand(3)
         plt_f = np.full(np.shape(mask), np.nan)
         plt_f[mask == i] = cp_freq_mat[mask == i]
-        ax2.eventplot(cp_freq_mat[mask == i])
+
+    for idx, (col, freq_ls) in enumerate(zip(color_mask, cp_freq_mat)):
+        for freq, c in zip(freq_ls, col):
+            ax2.plot([freq, freq], [idx-.25, idx+.25], color=c, linewidth=2)
+
 
     ax1.set_title('Habitat ' + habitat_id)
     ax1.set_xlabel('frequencies [Hz]')
@@ -275,7 +265,7 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     ax2.set_yticks(range(len(dates)))
     ax2.set_yticklabels(dates)
     # fig.savefig('Habitat_' + habitat_id + '.pdf')
-    ax2.eventplot(habitat_temp_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
+    # ax2.eventplot(habitat_temp_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
     plt.show()
     return habitat_freq_mat
 
