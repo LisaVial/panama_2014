@@ -140,6 +140,7 @@ def find_similar_freqs(freq_mat, df_thresh):
     # nans)
     cp_freq_mat = np.full((len(freq_mat), max_len), np.nan)
     for i in range(len(freq_mat)):
+        print('index is: ', i)
         cp_freq_mat[i, :len(freq_mat[i])] = freq_mat[i]     # fill new matrix with values from the previous analysis
     mask = np.full(np.shape(cp_freq_mat), np.nan)           # construct a second matrix, that works as boolean mask
     uni_freq = np.unique(np.hstack(cp_freq_mat))            # flatten all unique freqs of the constructed matrix
@@ -155,20 +156,20 @@ def find_similar_freqs(freq_mat, df_thresh):
             if np.isnan(mask[ori_i0, ori_i1]):  # change numbers in the mask, so the numbers show, where equal
                 id = id_counter                 # frequencies appear within the recordings
                 id_counter += 1
-                mask[ori_i0, ori_i1] = id
+                mask[ori_i0, ori_i1] = id       # id durch f ersetzen: Ziel -> gleiche Frequenzen, an der gleichen Stelle
             else:
                 id = mask[ori_i0, ori_i1]
 
             if np.abs(cp_freq_mat[i0, i1] - f) < df_thresh:     # check again, if we are at the right place in the mask
                 if np.isnan(mask[i0, i1]):
-                    mask[i0, i1] = id                           # change number at index, so you know, to which
+                    mask[i0, i1] = id                         # change number at index, so you know, to which
             else:                                               # frequencies the current one belongs
                 continue
 
     return cp_freq_mat, mask
 
 
-def rasterplot_for_habitat(habitat_data, habitat_id):
+def rasterplot_for_habitat(habitat_data, habitat_id, all_dates):
     """
     This function gets weakly electric fish recordings. These recordings are sorted and portrayed as a raster plot,
         containing the different fish frequencies, which were found in each habitat for each day
@@ -187,11 +188,28 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
 
     dates = list(habitat_data.keys())
     dates.sort()
+    # reverse dates so that the first date is shown as the first line in the rasterplot
+    dates = dates[::-1]
 
     habitat_freq_mat = []
     habitat_temp_mat = []
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True, sharey=True)
+    # activate next line to see not-temperature corrected data
+    # fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6), facecolor='w', edgecolor='k', sharex=True, sharey=True)
+
+    # fig, ax2 = plt.subplots(1, 1, figsize=(20/2.54, 12/2.54), facecolor='w', edgecolor='k', sharex=True, sharey=True)
+    fig = plt.figure(figsize=(20/2.54, 12/2.54), facecolor='w', edgecolor='k')
+    plt.tick_params(axis="both", which="both", bottom="off", top="off",
+                    labelbottom="on", left="off", right="off", labelleft="on")
+    import matplotlib.gridspec as gridspec
+    gs = gridspec.GridSpec(1, 5)
+    ax = gs[0, :-1]
+    ax = plt.subplot(gs[0, :-1])
+    ax2 = gs[0, -1]
+    ax2 = plt.subplot(gs[0, -1])
+    gs.update(left=0.05, bottom= 0.05, top = 0.95, right=0.95, wspace=0)
+
+    fish_counts = []
 
     for index in range(len(dates)):
         date = dates[index]
@@ -201,14 +219,59 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
 
         ori_cleaned_freqs = eodfs_cleaner(freqs, 1)
         cleaned_freqs = unique(freqs, 1, mode='power')
+        cl_f = []
+        for freq in cleaned_freqs:
+            if freq > 500:
+                cl_f.append(freq)
+            else:
+                continue
         temp_freqs = cleaned_freqs * (1.62 ** ((299.65 - temp) / 10))
 
 
         final_freqs = freqs_from_date(cleaned_freqs)
         final_temp_freqs = freqs_from_date(temp_freqs)
 
+        fish_counts.append(len(final_temp_freqs))
+        if index == 1:
+            embed()
         habitat_freq_mat.append(final_freqs)
         habitat_temp_mat.append(final_temp_freqs)
+    embed()
+    exit()
+
+    # block inserts left subplot, where not-temperature-corrected data is shown
+
+    # ax1.set_title('Habitat ' + habitat_id)
+    # ax1.set_xlabel('frequencies [Hz]')
+    # ax1.set_ylabel('dates')
+    # ax1.set_xlim(500, 1000)
+    # ax1.set_yticks(range(len(dates)))
+    # ax1.set_yticklabels(dates)
+    # # fig.savefig('Habitat_' + habitat_id + '.pdf')
+    # ax1.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
+    # # plt.show()
+
+    # this block plots the temperature corrected frequencies
+    # ax2.set_title('Q 10 corrected frequencies')
+    ax.eventplot(habitat_temp_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
+    ax.set_xlabel('frequencies [Hz]')
+    ax.set_ylabel('dates')
+    ax.set_xlim(500, 1000)
+    ax.set_yticks(range(len(dates)))
+    ax.set_yticklabels(dates)
+    ax2.barh(np.arange(len(fish_counts)), fish_counts, align='center', alpha=0.5)
+    # ax2.set_xticks(range(0, np.max(fish_counts)))
+    ax2.set_yticks([])
+    # plt.tight_layout()
+    # plt.savefig(str(habitat_id) + '_raster_black.png')
+    plt.savefig(str(habitat_id) + '_raster_bars.png')
+    plt.show()
+
+    # fish count histograms on the sides
+
+
+
+    # colored frequencies over days
 
     cp_freq_mat, mask = find_similar_freqs(habitat_temp_mat, 5)
     # embed()
@@ -236,37 +299,18 @@ def rasterplot_for_habitat(habitat_data, habitat_id):
     color = []
     for i in range(len(list_color_mask)):
         color.append(list(list_color_mask[i]))
-    plt.figure()
 
     for i in np.unique(mask)[~np.isnan(np.unique(mask))]:
         # c = np.random.rand(3)
         plt_f = np.full(np.shape(mask), np.nan)
         plt_f[mask == i] = cp_freq_mat[mask == i]
-
+        # embed()
+        # exit()
     for idx, (col, freq_ls) in enumerate(zip(color_mask, cp_freq_mat)):
         for freq, c in zip(freq_ls, col):
-            ax2.plot([freq, freq], [idx-.25, idx+.25], color=c, linewidth=2)
+            ax2.plot([freq, freq], [idx - .25, idx + .25], color=c, linewidth=2)
 
 
-    ax1.set_title('Habitat ' + habitat_id)
-    ax1.set_xlabel('frequencies [Hz]')
-    ax1.set_ylabel('dates')
-    ax1.set_xlim(500, 1000)
-    ax1.set_yticks(range(len(dates)))
-    ax1.set_yticklabels(dates)
-    # fig.savefig('Habitat_' + habitat_id + '.pdf')
-    ax1.eventplot(habitat_freq_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
-    # plt.show()
-
-    ax2.set_title('Q 10 corrected frequencies')
-    ax2.set_xlabel('frequencies [Hz]')
-    ax2.set_ylabel('dates')
-    ax2.set_xlim(500, 1000)
-    ax2.set_yticks(range(len(dates)))
-    ax2.set_yticklabels(dates)
-    # fig.savefig('Habitat_' + habitat_id + '.pdf')
-    # ax2.eventplot(habitat_temp_mat, orientation='horizontal', linelengths=0.5, linewidths=1.5, colors='k')
-    plt.show()
     return habitat_freq_mat
 
 
@@ -291,7 +335,8 @@ if __name__ == '__main__':
 
     habitats = list(data.keys())
     habitats.sort()
-    dates = get_dates(data)
+    all_dates = list(data[habitats[0]].keys())
+    all_dates.sort()
 
     for i in range(len(habitats)):
-        habitat_freq_mat = rasterplot_for_habitat(data[habitats[i]], habitats[i])
+        habitat_freq_mat = rasterplot_for_habitat(data[habitats[i]], habitats[i], all_dates)
